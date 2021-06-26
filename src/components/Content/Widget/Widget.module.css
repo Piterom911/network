@@ -1,4 +1,13 @@
 .wrapper {
     position: relative;
     width: 100%;
+    overflow: hidden;
+}
+
+.content {
+    padding: 15px 20px;
+}
+
+.heading {
+    margin-bottom: 10px;
 }

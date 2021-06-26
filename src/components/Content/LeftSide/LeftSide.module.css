@@ -2,5 +2,5 @@
     display: flex;
     max-width: 262px;
     width: 100%;
-    flex-display: column;
+    flex-direction: column;
 }

@@ -1,8 +1,17 @@
 .wrapper {
-    max-width: 1140px;
+    max-width: 1250px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 90px;
+    padding-left: 75px;
+    padding-right: 75px;
     display: flex;
     align-items: flex-start;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 30px;
+    flex-grow: 1;
 }

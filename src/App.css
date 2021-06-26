@@ -5,6 +5,10 @@
   font-family: "Roboto", "Segoe Ui";
 }
 
+body {
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,9 +20,12 @@ img {
   max-width: 100%;
 }
 
+svg path {
+  transition: fill .1s ease-in-out;
+}
 
-
-h3 {
+h3,
+h4 {
   border-bottom: 1px solid #272f41;
   display: block;
   font-weight: 500;
@@ -32,7 +39,8 @@ h3 {
   position: relative;
 }
 
-h3::before {
+h3::before ,
+h4::before {
   content: "";
   height: 90%;
   left: -20px;
@@ -40,6 +48,18 @@ h3::before {
   top: -5px;
   width: 3px;
   background: #fa6342;
+}
+
+h4 {
+  font-size: 14px;
+  padding: 15px 20px;
+}
+
+h4::before {
+  height: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
 }
 
 .themeBorder {

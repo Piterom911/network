@@ -1,6 +1,5 @@
 import React from 'react'
 import s from './Post.module.css'
-import avatar from '../../../../../images/portfolioWork.jpg'
 
 type PostPropsType = {
     post: string
@@ -11,7 +10,7 @@ export function Post(props: PostPropsType) {
     return (
         <div className={s.wrapper}>
             <div className={s.top}>
-                <div className={s.avatar}><img src={avatar} alt="avatar"/></div>
+                <div className={s.avatar}><img src={'http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar9.jpg'} alt="avatar"/></div>
                 <p className={s.post}>{props.post}</p>
                 <span className={s.likes}>likes({props.likesCount})</span>
             </div>
