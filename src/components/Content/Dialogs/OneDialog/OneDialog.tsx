@@ -1,16 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import s from './OneDialog.module.css'
+import {dialogTypes} from "../../../../state";
 
-type OneDialogPropsType = {
-    id: number
-    name: string
-    avatar: string
-    lastMessage: string
-    isYour: boolean
-}
-
-export function OneDialog(props: OneDialogPropsType) {
+export function OneDialog(props: dialogTypes) {
 
     const path = '/messages/' + props.id
 

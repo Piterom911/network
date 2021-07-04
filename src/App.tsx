@@ -3,19 +3,21 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
-import {OnlineContacts} from "./components/OnlineContacts/OnlineContacts";
-import {BrowserRouter} from "react-router-dom";
+import {OnlineFriends} from "./components/OnlineFriends/OnlineFriends";
+import {stateTypes} from "./state";
 
-function App() {
+type PropsType = {
+    state: stateTypes
+}
+
+function App(props: PropsType) {
     return (
-        <BrowserRouter>
-            <div className="App">
-                <Header />
-                <Navbar />
-                <Content />
-                <OnlineContacts />
-            </div>
-        </BrowserRouter>
+        <div className="App">
+            <Header/>
+            <Navbar/>
+            <Content state={props.state}/>
+            <OnlineFriends friends={props.state.rightSidebar.onlineFriends}/>
+        </div>
     );
 }
 

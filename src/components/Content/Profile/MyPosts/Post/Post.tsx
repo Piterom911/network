@@ -1,12 +1,12 @@
 import React from 'react'
 import s from './Post.module.css'
 
-type PostPropsType = {
+export type PostPropsType = {
     post: string
     likesCount: number
 }
 
-export function Post(props: PostPropsType) {
+export function Post(props: any) {
     return (
         <div className={s.wrapper}>
             <div className={s.top}>

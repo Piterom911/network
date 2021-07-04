@@ -1,22 +1,22 @@
 import React from 'react'
 import s from './Dialogs.module.css'
 import {OneDialog} from "./OneDialog/OneDialog";
+import {dialogTypes} from "../../../state";
 
-export function Dialogs() {
+type dialogsType = {
+    dialogs: dialogTypes[]
+}
+
+export function Dialogs(props: dialogsType) {
     return (
         <div className={s.wrapper}>
-            <OneDialog id={1}
-                       name={'Andrew'}
-                       avatar="http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar3.jpg"
-                       isYour={true}
-                       lastMessage={'Oh! Okay, I will chek it. Is its good for you? I will give you feedback!'}
-            />
-            <OneDialog id={2}
-                       name={'Lucy'}
-                       avatar="http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar4.jpg"
-                       isYour={false}
-                       lastMessage={'This will be my first time hiking in the mountains!'}
-            />
+            {props.dialogs.map( d => <OneDialog id={d.id}
+                                                avatar={d.avatar}
+                                                name={d.name}
+                                                isYour={d.isYour}
+                                                lastMessage={d.lastMessage}
+                                                key={d.id}
+            /> )}
         </div>
     )
 }

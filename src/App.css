@@ -1,8 +1,7 @@
 .App {
   color: white;
-  background: #060818 none repeat scroll 0 0;
+  background: #060818 url("https://static-cse.canva.com/blob/194831/Green-Financial-Services-Corporate-Zoom-Background.png") no-repeat center / cover;
   min-height: 100vh;
-  font-family: "Roboto", "Segoe Ui";
 }
 
 body {
