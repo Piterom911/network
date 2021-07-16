@@ -12,6 +12,8 @@
     top: 6px;
     background-color: #616a82;
     padding: 3px 15px;
+    line-height: 18px;
+    height: 24px;
     transform: translateX(100%);
     border-radius: 15px;
     font-size: 13px;
@@ -24,7 +26,7 @@
 .name::before {
     content: '';
     display: block;
-    right: -2px;
+    right: -1px;
     top: 2px;
     transform: rotate(45deg);
     height: 20px;
