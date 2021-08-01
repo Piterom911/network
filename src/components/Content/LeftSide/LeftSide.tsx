@@ -3,7 +3,7 @@ import s from './LeftSide.module.css'
 import {Widget} from "../Widget/Widget";
 import {Route} from "react-router-dom";
 import {Dialogs} from "../Dialogs/Dialogs";
-import { dialogTypes } from '../../../redux/state';
+import {dialogTypes} from "../../../redux/dialogsReducer";
 
 type dialogsType = {
     dialogs: dialogTypes[]

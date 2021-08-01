@@ -5,7 +5,7 @@ import {LeftSide} from "./LeftSide/LeftSide";
 import {RightSide} from "./RightSide/RightSide";
 import {Messages} from "./Dialogs/Messages/Messages";
 import { Route } from 'react-router-dom';
-import {actionsTypes, stateTypes} from "../../redux/state";
+import {actionsTypes, stateTypes} from "../../redux/store";
 
 type PropsType = {
     state: stateTypes

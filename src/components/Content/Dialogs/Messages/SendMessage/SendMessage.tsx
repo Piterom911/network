@@ -1,7 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
 import IconSend from '../../../../../icons/IconSend'
 import s from './SendMessage.module.css'
-import {actionsTypes, addMessageAC, newMessageTextAC} from "../../../../../redux/state";
+import {addMessageAC, newMessageTextAC} from "../../../../../redux/dialogsReducer";
+import {actionsTypes} from "../../../../../redux/store";
 
 type SendMessagePropsType = {
     dispatch: (action: actionsTypes) => void
@@ -19,11 +20,11 @@ export function SendMessage(props: SendMessagePropsType) {
     }
 
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if(e.currentTarget.value === '\n') return
         props.dispatch(newMessageTextAC(e.currentTarget.value))
     }
 
     const onEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if ( (e.shiftKey && e.key === 'Enter') || (e.ctrlKey && e.key === 'Enter') ) props.dispatch(newMessageTextAC('\n'))
         if (!e.shiftKey && !e.ctrlKey && e.key === 'Enter') {
             onMessageSend()
         }

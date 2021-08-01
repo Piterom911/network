@@ -1,8 +1,9 @@
 import React from 'react'
 import {OneMessage} from "./OneMessage/OneMessage";
 import s from './Messages.module.css'
-import {actionsTypes, messageTypes} from "../../../../redux/state";
 import {SendMessage} from "./SendMessage/SendMessage";
+import {messageTypes} from "../../../../redux/dialogsReducer";
+import {actionsTypes} from "../../../../redux/store";
 
 type messagesTypes = {
     newMessage: string

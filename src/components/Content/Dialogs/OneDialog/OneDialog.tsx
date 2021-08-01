@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import s from './OneDialog.module.css'
-import {dialogTypes} from "../../../../redux/state";
+import {dialogTypes} from "../../../../redux/dialogsReducer";
 
 export function OneDialog(props: dialogTypes) {
 

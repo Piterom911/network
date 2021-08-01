@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './Dialogs.module.css'
 import {OneDialog} from "./OneDialog/OneDialog";
-import {dialogTypes} from "../../../redux/state";
+import {dialogTypes} from "../../../redux/dialogsReducer";
 
 type dialogsType = {
     dialogs: dialogTypes[]

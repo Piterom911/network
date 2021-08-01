@@ -4,7 +4,7 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {OnlineFriends} from "./components/OnlineFriends/OnlineFriends";
-import {actionsTypes, stateTypes} from "./redux/state";
+import {actionsTypes, stateTypes} from "./redux/store";
 
 type PropsType = {
     state: stateTypes
@@ -12,6 +12,7 @@ type PropsType = {
 }
 
 function App(props: PropsType) {
+    // console.log('Вот что стало: ', props.state.rightSidebarReducer.onlineFriends)
     return (
         <div className="App">
             <Header/>

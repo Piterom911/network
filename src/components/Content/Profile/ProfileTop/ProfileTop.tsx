@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './ProfileTop.module.css'
-import {actionsTypes, addPostAC, newPostTextAC} from "../../../../redux/state";
+import {addPostAC, newPostTextAC} from "../../../../redux/profileReducer";
+import {actionsTypes} from "../../../../redux/store";
 
 type addPostTypes = {
     newPostText: string
