@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './OnlineFriends.module.css'
 import OnlineFriend from "./OnlineFriend/OnlineFriend";
-import {onlineFriendTypes} from "../../state";
+import {onlineFriendTypes} from "../../redux/state";
 
 type friendsTypes = {
     friends: onlineFriendTypes[]

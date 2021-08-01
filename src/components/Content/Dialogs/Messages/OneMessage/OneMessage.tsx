@@ -2,7 +2,7 @@ import React from 'react'
 import s from './OneMessage.module.css'
 
 type OneMessagePropsType = {
-    id: number
+    id: string
     avatar: string
     message: string
     isYou: boolean
