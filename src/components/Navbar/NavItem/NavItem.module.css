@@ -55,6 +55,8 @@
     transform: translateX(-70px);
     border-radius: 15px;
     font-size: 13px;
+    height: 24px;
+    line-height: 18px;
     opacity: 0;
     transition: all .2s ease-in-out;
     z-index: -1;
