@@ -4,21 +4,20 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {OnlineFriends} from "./components/OnlineFriends/OnlineFriends";
-import {actionsTypes, stateTypes} from "./redux/store";
+import {StoreType} from "./redux/store";
 
 type PropsType = {
-    state: stateTypes
-    dispatch: (action: actionsTypes) => void
+    store: StoreType
 }
 
 function App(props: PropsType) {
-    // console.log('Вот что стало: ', props.state.rightSidebarReducer.onlineFriends)
+    const friends = props.store.getState().rightSidebar.onlineFriends
     return (
         <div className="App">
             <Header/>
             <Navbar/>
-            <Content dispatch={props.dispatch} state={props.state}/>
-            <OnlineFriends friends={props.state.rightSidebar.onlineFriends}/>
+            <Content store={props.store} />
+            <OnlineFriends friends={friends}/>
         </div>
     );
 }

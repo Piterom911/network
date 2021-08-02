@@ -1,14 +1,14 @@
 import React from 'react'
 import {OneMessage} from "./OneMessage/OneMessage";
 import s from './Messages.module.css'
-import {SendMessage} from "./SendMessage/SendMessage";
 import {messageTypes} from "../../../../redux/dialogsReducer";
-import {actionsTypes} from "../../../../redux/store";
+import {StoreType} from "../../../../redux/store";
+import {SendMessageContainer} from "./SendMessage/SendMessageContainer";
 
 type messagesTypes = {
     newMessage: string
     messages: messageTypes[]
-    dispatch: (action: actionsTypes) => void
+    store: StoreType
 }
 
 export function Messages(props: messagesTypes) {
@@ -16,7 +16,7 @@ export function Messages(props: messagesTypes) {
         <div className={'themeBorder ' + s.wrapper}>
             <h3>Messages</h3>
             { props.messages.map( m => <OneMessage key={m.id} id={m.id} avatar={m.avatar} message={m.message} isYou={m.isYou} />)}
-            <SendMessage newMessage={props.newMessage} dispatch={props.dispatch} />
+            <SendMessageContainer store={props.store} />
         </div>
     )
 }

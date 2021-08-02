@@ -3,18 +3,19 @@ import s from './LeftSide.module.css'
 import {Widget} from "../Widget/Widget";
 import {Route} from "react-router-dom";
 import {Dialogs} from "../Dialogs/Dialogs";
-import {dialogTypes} from "../../../redux/dialogsReducer";
+import {StoreType} from "../../../redux/store";
 
-type dialogsType = {
-    dialogs: dialogTypes[]
+type PropsType = {
+    store: StoreType
 }
 
-export function LeftSide(props: dialogsType) {
+export function LeftSide(props: PropsType) {
+    const dialogs = props.store.getState().dialogsPage.dialogs
     return (
         <div className={s.wrapper}>
             <Route path={'/messages'} render={ () => <Widget
                 heading={'Dialogs'}
-                content={<Dialogs dialogs={props.dialogs} />} /> } />
+                content={<Dialogs dialogs={dialogs} />} /> } />
             <Widget heading={'Something'} />
         </div>
     )

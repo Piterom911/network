@@ -1,11 +1,10 @@
 import React from 'react'
 import s from './ProfileTop.module.css'
-import {addPostAC, newPostTextAC} from "../../../../redux/profileReducer";
-import {actionsTypes} from "../../../../redux/store";
 
 type addPostTypes = {
     newPostText: string
-    dispatch: (action: actionsTypes) => void
+    addPost: (newPost: string) => void
+    onPostChange: (newValue: string) => void
 }
 
 export function ProfileTop(props: addPostTypes) {
@@ -13,13 +12,13 @@ export function ProfileTop(props: addPostTypes) {
     const enteredText = React.createRef<HTMLTextAreaElement>()
 
     const onPostChangeHandler = () => {
-        if(enteredText.current?.value || enteredText.current?.value === '') props.dispatch(newPostTextAC(enteredText.current.value))
+        if(enteredText.current?.value || enteredText.current?.value === '') props.onPostChange(enteredText.current.value)
     }
 
     const addPostHandler = () => {
         let value = enteredText.current?.value.trim();
         if(value && enteredText.current?.value) {
-            props.dispatch(addPostAC(value))
+            props.addPost(value)
             enteredText.current.value = ''
         }
     }
