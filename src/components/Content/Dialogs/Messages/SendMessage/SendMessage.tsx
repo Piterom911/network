@@ -1,17 +1,12 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
 import IconSend from '../../../../../icons/IconSend'
 import s from './SendMessage.module.css'
+import {SendMessagePropsType2} from "./SendMessageContainer";
 
-type SendMessagePropsType = {
-    onMessageSend: () => void
-    onMessageChange: (value: string) => void
-    newMessage: string
-}
-
-export function SendMessage(props: SendMessagePropsType) {
+export function SendMessage(props: SendMessagePropsType2) {
 
     const onMessageSend = () => {
-        props.onMessageSend()
+        props.onMessageSend(props.newMessage)
     }
 
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

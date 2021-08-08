@@ -3,24 +3,21 @@ import {Profile} from './Profile/Profile';
 import s from './Content.module.css'
 import {LeftSide} from "./LeftSide/LeftSide";
 import {RightSide} from "./RightSide/RightSide";
-import {Messages} from "./Dialogs/Messages/Messages";
 import { Route } from 'react-router-dom';
 import {StoreType} from "../../redux/store";
+import MessagesContainer from "./Dialogs/Messages/MessagesContainer";
 
 type PropsType = {
     store: StoreType
 }
 
 export function Content(props: PropsType) {
-    const dialogsPage = props.store.getState().dialogsPage
     return (
         <div className={s.wrapper}>
-            <LeftSide store={props.store} />
+            <LeftSide />
             <div className={s.inner}>
-                <Route path={'/profile'} render={ () => <Profile store={props.store} /> } />
-                <Route path={'/messages'} render={ () => <Messages store={props.store}
-                                                                   newMessage={dialogsPage.newMessage}
-                                                                   messages={dialogsPage.messages} /> } />
+                <Route path={'/profile'} render={ () => <Profile /> } />
+                <Route path={'/messages'} render={ () => <MessagesContainer /> } />
             </div>
 
             <RightSide />

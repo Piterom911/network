@@ -24,7 +24,7 @@ export type addMessageActionType = ReturnType<typeof addMessageAC>
 
 export type dialogsActions = newMessageTextActionType | addMessageActionType
 
-const initialState = {
+const initialState: dialogsPageTypes = {
     dialogs: [
         {
             id: v1(),
@@ -61,17 +61,21 @@ const initialState = {
 function dialogsReducer(state: dialogsPageTypes = initialState, action: dialogsActions): dialogsPageTypes {
     switch (action.type) {
         case 'NEW-MESSAGE-TEXT':
-            state.newMessage = action.newMessageText
-            return state
+            return {...state, newMessage: action.newMessageText}
         case 'ADD-MESSAGE':
-            state.messages.push({
-                id: v1(),
-                isYou: true,
-                avatar: 'http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar8.jpg',
-                message: action.message
-            })
-            state.newMessage = ''
-            return state
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    {
+                        id: v1(),
+                        isYou: true,
+                        avatar: 'http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar8.jpg',
+                        message: action.message
+                    }
+                ],
+                newMessage: ''
+            }
         default:
             return state
     }

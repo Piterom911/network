@@ -1,13 +1,9 @@
 import React from 'react'
 import s from './Dialogs.module.css'
 import {OneDialog} from "./OneDialog/OneDialog";
-import {dialogTypes} from "../../../redux/dialogsReducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type dialogsType = {
-    dialogs: dialogTypes[]
-}
-
-export function Dialogs(props: dialogsType) {
+export function Dialogs(props: DialogsPropsType) {
     return (
         <div className={s.wrapper}>
             {props.dialogs.map( d => <OneDialog id={d.id}

@@ -4,7 +4,8 @@ import dialogsReducer, { dialogsActions, dialogsPageTypes, } from "./dialogsRedu
 import rightSidebar, { rightSidebarTypes } from "./rightSidebar";
 
 export type actionsTypes = profileActions | dialogsActions
-export type StoreType = Store & ReturnType<typeof reducers>
+export type AppStateTypes = ReturnType<typeof rootReducer>
+export type StoreType = Store & AppStateTypes
 
 export type stateTypes = {
     profilePage: profilePageTypes
@@ -12,12 +13,12 @@ export type stateTypes = {
     rightSidebar: rightSidebarTypes
 }
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     rightSidebar: rightSidebar
 })
 
-const store: StoreType = createStore(reducers)
+const store: StoreType = createStore(rootReducer)
 
 export default store
