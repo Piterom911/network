@@ -16,14 +16,21 @@ export function Navbar() {
             <NavItem name={'Messages'} to={'/messages'}>
                 <IconMessages fill={'white'} />
             </NavItem>
+            <NavItem name={'People'} to={'/users'}>
+                <div className={s.users}>
+                    <IconUser fill={'white'} />
+                    <IconUser fill={'white'} />
+                    <IconUser fill={'white'} />
+                </div>
+            </NavItem>
             <NavItem name={'News'} to={'/news'}>
                 <IconNews fill={'white'} />
             </NavItem>
-            <NavItem name={'Settings'} to={'/settings'}>
-                <IconSettings fill={'white'} />
-            </NavItem>
             <NavItem name={'Music'} to={'/music'}>
                 <IconMusic fill={'white'} />
+            </NavItem>
+            <NavItem name={'Settings'} to={'/settings'}>
+                <IconSettings fill={'white'} />
             </NavItem>
         </div>
     )

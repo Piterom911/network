@@ -6,12 +6,9 @@ import {RightSide} from "./RightSide/RightSide";
 import { Route } from 'react-router-dom';
 import {StoreType} from "../../redux/store";
 import MessagesContainer from "./Dialogs/Messages/MessagesContainer";
+import Users from './Users/Users';
 
-type PropsType = {
-    store: StoreType
-}
-
-export function Content(props: PropsType) {
+export function Content() {
     return (
         <div className={s.wrapper}>
             <LeftSide />

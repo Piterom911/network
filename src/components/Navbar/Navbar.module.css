@@ -9,3 +9,21 @@
     z-index: 9;
     background: #1d2333 none repeat scroll 0 0;
 }
+
+.users {
+    position: relative;
+}
+
+.users svg:first-child {
+    position: absolute;
+    left: 20px;
+    top: -5px;
+    width: 15px;
+}
+
+.users svg:last-child {
+    position: absolute;
+    right: 20px;
+    top: -5px;
+    width: 15px;
+}

@@ -14,11 +14,11 @@
 }
 
 .wrapper:hover {
-    background-color: #616a82;
+    background-color: #545863;
 }
 
 .active {
-    background-color: rgba(0, 0, 0, .3);
+    background-color: #616a82;
 }
 
 .avatar {
