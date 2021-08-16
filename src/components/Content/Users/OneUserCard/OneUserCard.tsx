@@ -4,7 +4,11 @@ import {UserType} from "../../../../redux/usersReducer";
 import {MapDispatchToPropsType} from "../UsersContainer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
 
-export default function OneUserCard(props: UserType & MapDispatchToPropsType & { background: string }) {
+type PropsType = {
+    background: string
+}
+
+export default function OneUserCard(props: UserType & MapDispatchToPropsType & PropsType) {
     const onUnfollowHandler = () => props.onUnfollow(props.id)
     const onFollowHandler = () => props.onFollow(props.id)
     return (
