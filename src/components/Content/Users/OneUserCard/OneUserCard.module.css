@@ -59,6 +59,7 @@
 .bgBox {
     position: relative;
     min-height: 118px;
+    overflow: hidden;
 }
 
 .bgImg {
@@ -66,6 +67,7 @@
     left: 0;
     top: 0;
     border-radius: 4px;
+    width: 100%;
 }
 
 .privet {

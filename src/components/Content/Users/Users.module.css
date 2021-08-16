@@ -12,4 +12,24 @@
 
 .usersWrapper {
     display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    max-height: calc(100vh - 200px);
+}
+
+.usersWrapper::-webkit-scrollbar {
+    width: 6px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    background-color: #475072;
+}
+
+.usersWrapper::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: #475072;
+}
+
+.usersWrapper::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
 }

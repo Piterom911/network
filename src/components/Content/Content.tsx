@@ -11,13 +11,13 @@ import Users from './Users/Users';
 export function Content() {
     return (
         <div className={s.wrapper}>
-            <LeftSide />
+            <Route path={['/profile', '/messages']} render={ () => <LeftSide /> } />
             <div className={s.inner}>
                 <Route path={'/profile'} render={ () => <Profile /> } />
                 <Route path={'/messages'} render={ () => <MessagesContainer /> } />
             </div>
 
-            <RightSide />
+            <Route path={['/profile', '/messages']} render={ () => <RightSide /> } />
         </div>
     )
 }
