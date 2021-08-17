@@ -3,10 +3,8 @@ import {Profile} from './Profile/Profile';
 import s from './Content.module.css'
 import {LeftSide} from "./LeftSide/LeftSide";
 import {RightSide} from "./RightSide/RightSide";
-import { Route } from 'react-router-dom';
-import {StoreType} from "../../redux/store";
+import {Route} from 'react-router-dom';
 import MessagesContainer from "./Dialogs/Messages/MessagesContainer";
-import Users from './Users/Users';
 
 export function Content() {
     return (

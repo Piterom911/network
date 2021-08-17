@@ -1,14 +1,16 @@
 import React from 'react'
 import s from './OneUserCard.module.css'
 import {UserType} from "../../../../redux/usersReducer";
-import {MapDispatchToPropsType} from "../UsersContainer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
 
 type PropsType = {
     background: string
+    onFollow: (userID: number) => void
+    onUnfollow: (userID: number) => void
+    onSetUsers: (users: UserType[]) => void
 }
 
-export default function OneUserCard(props: UserType & MapDispatchToPropsType & PropsType) {
+export default function OneUserCard(props: UserType & PropsType) {
     const onUnfollowHandler = () => props.onUnfollow(props.id)
     const onFollowHandler = () => props.onFollow(props.id)
     return (
