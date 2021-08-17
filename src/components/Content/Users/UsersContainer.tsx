@@ -7,7 +7,7 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalCountAC,
-    setUsersAC,
+    setUsersAC, toggleIsFetchingAC,
     unfollowAC,
     UserType
 } from "../../../redux/usersReducer";
@@ -25,7 +25,6 @@ import bg11 from "../../../assets/images/users/user-cover14.jpg";
 import bg12 from "../../../assets/images/users/user-cover11.jpg";
 import axios from "axios";
 import s from "./Users.module.css";
-import OneUserCard from "./OneUserCard/OneUserCard";
 
 type StateType = {
     imagesBg: Array<string>
@@ -48,11 +47,14 @@ class UsersAPI extends React.Component<UsersPropsType, StateType> {
     }
 
     setCurrentPage = (currentPage: number) => {
+        if (currentPage === this.props.currentPage) return
         console.log(this.props)
         this.props.onsetCurrentPage(currentPage)
+        this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pagesSize}&page=${currentPage}`)
             .then(response => {
                 this.props.onSetUsers(response.data.items)
+                this.props.toggleIsFetching(false)
             })
     }
 
@@ -75,6 +77,7 @@ class UsersAPI extends React.Component<UsersPropsType, StateType> {
         })
 
         return <Users users={this.props.users}
+                      isFetching={this.props.isFetching}
                       pagesCount={pagesCount}
                       currentPage={this.props.currentPage}
                       imagesBg={this.state.imagesBg}
@@ -83,6 +86,7 @@ class UsersAPI extends React.Component<UsersPropsType, StateType> {
                       onSetUsers={this.props.onSetUsers}
                       onFollow={this.props.onFollow}
                       onUnfollow={this.props.onUnfollow}
+                      toggleIsFetching={this.props.toggleIsFetching}
         />
     }
 }
@@ -92,6 +96,7 @@ export type MapStateToPropsType = {
     pagesSize: number
     currentPage: number
     totalUsersCount: number
+    isFetching: boolean
 }
 export type MapDispatchToPropsType = {
     onFollow: (userID: number) => void
@@ -99,6 +104,7 @@ export type MapDispatchToPropsType = {
     onSetUsers: (users: UserType[]) => void
     onsetCurrentPage: (currentPage: number) => void
     setTotalCount: (pagesCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -108,6 +114,7 @@ const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
         pagesSize: state.usersPage.pagesSize,
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
+        isFetching: state.usersPage.isFetching
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
@@ -116,7 +123,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         onUnfollow: (userID: number) => dispatch(unfollowAC(userID)),
         onSetUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
         onsetCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-        setTotalCount: (pagesCount) => dispatch(setTotalCountAC(pagesCount))
+        setTotalCount: (pagesCount) => dispatch(setTotalCountAC(pagesCount)),
+        toggleIsFetching: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching))
     }
 }
 

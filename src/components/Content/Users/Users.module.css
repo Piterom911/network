@@ -15,6 +15,7 @@
     flex-wrap: wrap;
     overflow: auto;
     max-height: calc(100vh - 200px);
+    position: relative;
 }
 
 .usersWrapper::-webkit-scrollbar {
