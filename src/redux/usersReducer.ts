@@ -62,12 +62,12 @@ function usersReducer(state: UsersPageTypes = initialState, action: RootActionTy
     }
 }
 
-type FollowType = ReturnType<typeof followAC>
-type UnfollowType = ReturnType<typeof unfollowAC>
-type SetUsersType = ReturnType<typeof setUsersAC>
-type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
-type SetPagesCountType = ReturnType<typeof setTotalCountAC>
-type ToggleIsFetchingType = ReturnType<typeof toggleIsFetchingAC>
+type FollowType = ReturnType<typeof follow>
+type UnfollowType = ReturnType<typeof unfollow>
+type SetUsersType = ReturnType<typeof setUsers>
+type SetCurrentPageType = ReturnType<typeof setCurrentPage>
+type SetPagesCountType = ReturnType<typeof setTotalCount>
+type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
 
 type RootActionType = FollowType
     | UnfollowType
@@ -76,11 +76,11 @@ type RootActionType = FollowType
     | SetPagesCountType
     | ToggleIsFetchingType
 
-export const followAC = (userID: number) => { return {type: 'FOLLOW', userID} as const }
-export const unfollowAC = (userID: number) => { return {type: 'UNFOLLOW', userID} as const }
-export const setUsersAC = (users: Array<UserType>) => { return {type: 'SET-USERS', users} as const }
-export const setCurrentPageAC = (currentPage: number) => { return {type: 'SET-CURRENT-PAGE', currentPage} as const }
-export const setTotalCountAC = (totalCount: number) => { return {type: 'SET-PAGES-COUNT', totalCount} as const }
-export const toggleIsFetchingAC = (isFetching: boolean) => { return {type: 'TOGGLE-IS-FETCHING', isFetching} as const }
+export const follow = (userID: number) => { return {type: 'FOLLOW', userID} as const }
+export const unfollow = (userID: number) => { return {type: 'UNFOLLOW', userID} as const }
+export const setUsers = (users: Array<UserType>) => { return {type: 'SET-USERS', users} as const }
+export const setCurrentPage = (currentPage: number) => { return {type: 'SET-CURRENT-PAGE', currentPage} as const }
+export const setTotalCount = (totalCount: number) => { return {type: 'SET-PAGES-COUNT', totalCount} as const }
+export const toggleIsFetching = (isFetching: boolean) => { return {type: 'TOGGLE-IS-FETCHING', isFetching} as const }
 
 export default usersReducer
