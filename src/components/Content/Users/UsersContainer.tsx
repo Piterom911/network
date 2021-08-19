@@ -30,15 +30,19 @@ type StateType = {
     imagesBg: Array<string>
 }
 
-class UsersAPI extends React.Component<UsersPropsType, StateType> {
+export type ProfilePageType = {
+    title?: string
+    className?: string
+}
 
-    constructor(props: UsersPropsType) {
+class UsersAPI extends React.Component<UsersPropsType & ProfilePageType, StateType> {
+
+    constructor(props: UsersPropsType & ProfilePageType) {
         super(props);
         this.state = {imagesBg: [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12]}
     }
 
     componentDidMount() {
-        console.log(this.props)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pagesSize}&page=${this.props.currentPage}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
@@ -77,6 +81,8 @@ class UsersAPI extends React.Component<UsersPropsType, StateType> {
         })
 
         return <Users users={this.props.users}
+                      title={this.props.title}
+                      className={this.props.className}
                       isFetching={this.props.isFetching}
                       pagesCount={pagesCount}
                       currentPage={this.props.currentPage}

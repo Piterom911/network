@@ -1,8 +1,8 @@
 import React, {KeyboardEvent} from 'react'
-import s from './ProfileTop.module.css'
-import {ProfileTopPropsType} from "./ProfileTopContainer";
+import s from './PostTop.module.css'
+import {ProfileTopPropsType} from "./PostTopContainer";
 
-export function ProfileTop(props: ProfileTopPropsType) {
+export function PostTop(props: ProfileTopPropsType) {
 
     const enteredText = React.createRef<HTMLTextAreaElement>()
 

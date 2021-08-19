@@ -23,7 +23,7 @@ export function Navbar() {
                     <IconUser fill={'white'} />
                 </div>
             </NavItem>
-            <NavItem name={'News'} to={'/news'}>
+            <NavItem name={'Posts'} to={'/posts'}>
                 <IconNews fill={'white'} />
             </NavItem>
             <NavItem name={'Music'} to={'/music'}>

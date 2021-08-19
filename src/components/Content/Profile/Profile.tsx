@@ -1,13 +1,12 @@
-import React from "react"
-import s from './Profile.module.css'
-import ProfileTopContainer from "./ProfileTop/ProfileTopContainer";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import React from "react";
+import UsersContainer from "../Users/UsersContainer";
+import UserContainer from "../Users/User/UserContainer";
 
-export function Profile() {
+export default function Profile() {
     return (
-        <div className={`innerWrapper`}>
-            <ProfileTopContainer />
-            <MyPostsContainer />
-        </div>
+        <>
+            <UserContainer />
+            <UsersContainer className={'profile'} title={'Other People'}/>
+        </>
     )
 }

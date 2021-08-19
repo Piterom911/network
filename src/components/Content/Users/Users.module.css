@@ -18,6 +18,10 @@
     position: relative;
 }
 
+.profile {
+    max-height: calc(100vh - 550px);
+}
+
 .usersWrapper::-webkit-scrollbar {
     width: 6px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

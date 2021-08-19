@@ -1,7 +1,7 @@
 import React from 'react'
-import {addPostAC, newPostTextAC} from "../../../../redux/profileReducer";
+import {addPostAC, newPostTextAC} from "../../../../redux/postsReducer";
 import {AppStateTypes} from "../../../../redux/store";
-import {ProfileTop} from "./ProfileTop";
+import {PostTop} from "./PostTop";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 
@@ -16,7 +16,7 @@ export type ProfileTopPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
     return {
-        newPostText: state.profilePage.newPostText
+        newPostText: state.postsPage.newPostText
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
@@ -30,5 +30,5 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-const ProfileTopContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileTop)
-export default ProfileTopContainer
+const PostTopContainer = connect(mapStateToProps, mapDispatchToProps)(PostTop)
+export default PostTopContainer

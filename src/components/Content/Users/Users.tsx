@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import OneUserCard from "./OneUserCard/OneUserCard";
 import {UserType} from "../../../redux/usersReducer";
 import PreloaderStar from "../../../icons/Preloaders/PreloaderStar";
+import {ProfilePageType} from "./UsersContainer";
 
 type PropsType = {
     users: UserType[]
@@ -18,12 +19,12 @@ type PropsType = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-export default function Users(props: PropsType) {
+export default function Users(props: PropsType & ProfilePageType) {
     return (
         <div className={`contentCenter`}>
             <div className={`themeBorder themeBorderPad`}>
                 <div className={s.usersTop}>
-                    <h3>People Page</h3>
+                    <h3>{props.title ? props.title : 'People Page'}</h3>
                     {props.pagesCount > 1 && <div className={s.pagination}>
                         <span onClick={() => props.setCurrentPage(1)} className={s.goToEnd}>&laquo; </span>
                         {props.currentPage > 4 && '... '}
@@ -33,7 +34,7 @@ export default function Users(props: PropsType) {
                               className={s.goToEnd}> &raquo;</span>
                     </div>}
                 </div>
-                <div className={s.usersWrapper}>
+                <div className={s.usersWrapper + ' ' + s[props.className as string] }>
                     { props.isFetching && <PreloaderStar /> }
                     {props.users.map((u, i) => {
                         return <OneUserCard id={u.id}

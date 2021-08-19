@@ -20,8 +20,6 @@ function App(props: PropsType) {
             <Header/>
             <Navbar/>
             <Content />
-            <Route path={'/user-profile'} render={ () => <User /> } />
-            <Route path={'/users'} render={ () => <UsersContainer /> } />
 
             <OnlineFriends friends={friends}/>
         </div>

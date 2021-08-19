@@ -1,56 +1,63 @@
-import {v1} from "uuid";
 
-export type postTypes = {
-    id: string
-    likes: number
-    post: string
-}
 export type profilePageTypes = {
-    posts: Array<postTypes>
-    newPostText: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
 }
 
-export type newPostTextActionType = ReturnType<typeof newPostTextAC>
-export type addPostActionType = ReturnType<typeof addPostAC>
-
-export type profileActions = newPostTextActionType | addPostActionType
-
-const initialState = {
-    posts: [
-        {id: v1(), likes: 8, post: 'This is my first post'},
-        {
-            id: v1(),
-            likes: 3,
-            post: 'I think this post should be longer than others and it not necessary to be interesting and be right.'
-        },
-        {id: v1(), likes: 17, post: 'The truth is... I am Iron Man!'}
-    ],
-    newPostText: ''
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
-function profileReducer(state: profilePageTypes = initialState, action: profileActions): profilePageTypes {
+export type PhotosType ={
+    small: string
+    large: string
+}
+
+export type SetProfileACType = ReturnType<typeof setProfileAC>
+
+export type dialogsActions = SetProfileACType
+
+const initialState: profilePageTypes = {
+    userId: 0,
+    lookingForAJob: false,
+    lookingForAJobDescription: '',
+    fullName: '',
+    contacts: {
+        github: '',
+        vk: '',
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        website: '',
+        youtube: '',
+        mainLink: ''
+    },
+    photos: {
+        small: '',
+        large: ''
+    }
+}
+
+function profileReducer(state: profilePageTypes = initialState, action: dialogsActions): profilePageTypes {
     switch (action.type) {
-        case 'NEW-POST-TEXT':
-            return {
-                ...state,
-                newPostText: action.newPostText
-            }
-        case 'ADD-POST':
-            return {
-                ...state,
-                posts: [{id: v1(), likes: 0, post: action.post}, ...state.posts],
-                newPostText: ''
-            }
+        case 'SET-PROFILE':
+            return action.data
         default:
             return state
     }
 }
 
-export const newPostTextAC = (newPostText: string) => {
-    return {type: 'NEW-POST-TEXT', newPostText} as const
-}
-export const addPostAC = (post: string) => {
-    return {type: 'ADD-POST', post} as const
-}
+export const setProfileAC = (data: profilePageTypes) => { return {type: 'SET-PROFILE', data} as const }
 
 export default profileReducer
