@@ -10,7 +10,7 @@ export function Content() {
     return (
         <div className={s.wrapper}>
             <Route path={['/profile', '/messages']} render={ () => <LeftSide /> } />
-            <div className={s.inner}>
+            <div className={`innerCenter`}>
                 <Route path={'/profile'} render={ () => <Profile /> } />
                 <Route path={'/messages'} render={ () => <MessagesContainer /> } />
             </div>

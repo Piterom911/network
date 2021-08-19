@@ -1,0 +1,38 @@
+.wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.bgImage {
+    position: absolute;
+    left: 0;
+    top: -100px;
+    width: 100%;
+    z-index: 0;
+    opacity: .4;
+}
+
+.imageWrapper {
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+    border: 3px solid white;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.userImage {
+    width: 100%;
+}
+
+.content {
+    z-index: 1;
+    position: relative;
+    display: flex;
+}
+
+.name {
+    font-size: 20px;
+}

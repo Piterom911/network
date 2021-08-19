@@ -7,6 +7,7 @@ import {OnlineFriends} from "./components/OnlineFriends/OnlineFriends";
 import {StoreType} from "./redux/store";
 import {Route} from "react-router-dom";
 import UsersContainer from "./components/Content/Users/UsersContainer";
+import User from "./components/Content/Users/User/User";
 
 type PropsType = {
     store: StoreType
@@ -19,6 +20,7 @@ function App(props: PropsType) {
             <Header/>
             <Navbar/>
             <Content />
+            <Route path={'/user-profile'} render={ () => <User /> } />
             <Route path={'/users'} render={ () => <UsersContainer /> } />
 
             <OnlineFriends friends={friends}/>

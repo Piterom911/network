@@ -9,7 +9,7 @@ export function LeftSide() {
         <div className={s.wrapper}>
             <Route path={'/messages'} render={ () => <Widget
                 heading={'Dialogs'}
-                content={<DialogsContainer />} /> } />
+                children={<DialogsContainer />} /> } />
             <Widget heading={'Something'} />
         </div>
     )

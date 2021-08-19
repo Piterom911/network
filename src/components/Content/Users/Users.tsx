@@ -20,8 +20,8 @@ type PropsType = {
 
 export default function Users(props: PropsType) {
     return (
-        <div className={s.contentCenter}>
-            <div className={`${s.wrapper} themeBorder`}>
+        <div className={`contentCenter`}>
+            <div className={`themeBorder themeBorderPad`}>
                 <div className={s.usersTop}>
                     <h3>People Page</h3>
                     {props.pagesCount > 1 && <div className={s.pagination}>
