@@ -19,7 +19,7 @@ export function Content() {
                 </div>
                 <Route path={['/posts', '/messages']} render={() => <RightSide/>}/>
             </div>
-            <Route path={'/profile'} render={() => <Profile/>}/>
+            <Route path={'/profile/:userID?'} render={() => <Profile/>}/>
             <Route path={'/users'} render={() => <UsersContainer/>}/>
         </>
     )

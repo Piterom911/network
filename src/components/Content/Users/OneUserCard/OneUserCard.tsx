@@ -2,6 +2,8 @@ import React from 'react'
 import s from './OneUserCard.module.css'
 import {UserType} from "../../../../redux/usersReducer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
+import userIcon2 from '../../../../assets/images/users/userIcon5.jpg'
+import { NavLink } from 'react-router-dom';
 
 type PropsType = {
     background: string
@@ -14,6 +16,7 @@ type PropsType = {
 export default function OneUserCard(props: UserType & PropsType) {
     const onUnfollowHandler = () => props.onUnfollow(props.id)
     const onFollowHandler = () => props.onFollow(props.id)
+    const userIconAny = props.id % 3 === 0 ? userIcon2 : userIcon
     return (
         <div className={`${s.wrapper} ${props.isFetching && s.opacity}`}>
             <div className={s.card}>
@@ -25,10 +28,10 @@ export default function OneUserCard(props: UserType & PropsType) {
                 <div className={s.infoBox}>
                     <div className={s.privet}>
                         <div className={s.imgBox}>
-                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIcon} alt="User Image"/>
+                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIconAny} alt="User Image"/>
                         </div>
                         <div className={s.data}>
-                            <a href="#" className={s.name}>{props.name}</a>
+                            <NavLink to={`/profile/${props.id}`} className={s.name}>{props.name}</NavLink>
                             <p className={s.location}>The Earth Planet</p>
                         </div>
                     </div>

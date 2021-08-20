@@ -71,12 +71,12 @@ class UsersAPI extends React.Component<UsersPropsType & ProfilePageType, StateTy
         }
 
         const pagesRender = pages.filter(p => p < this.props.currentPage + 4
-            && p > this.props.currentPage - 4).map(p => {
-            return <span
-                className={p === this.props.currentPage
-                    ? `${s.page} ${s.currentPage}`
-                    : `${s.page}`}
-                onClick={() => this.setCurrentPage(p)}
+            && p > this.props.currentPage - 4).map( p => {
+            return <span key={p}
+                         className={p === this.props.currentPage
+                             ? `${s.page} ${s.currentPage}`
+                             : `${s.page}`}
+                         onClick={() => this.setCurrentPage(p)}
             >&#160;{p}&#160;</span>
         })
 

@@ -29,7 +29,7 @@ export type SetProfileACType = ReturnType<typeof setProfileAC>
 export type dialogsActions = SetProfileACType
 
 const initialState: profilePageTypes = {
-    userId: 0,
+    userId: 11450,
     lookingForAJob: false,
     lookingForAJobDescription: '',
     fullName: '',

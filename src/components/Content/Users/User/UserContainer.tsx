@@ -4,14 +4,32 @@ import {connect} from "react-redux";
 import {profilePageTypes, setProfileAC} from "../../../../redux/profileReducer";
 import axios from "axios";
 import {AppStateTypes} from "../../../../redux/store";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-export class UserAPI extends React.Component<profilePageTypes & MDTPType, {}> {
-    // constructor() {
-    //     super();
-    // }
+
+type PathParamsType = {
+    userID: string,
+}
+
+export type PropsType = RouteComponentProps<PathParamsType> & profilePageTypes & MDTPType
+
+export class UserAPI extends React.Component<PropsType, {}> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/11112`)
+        const userID = this.props.match.params.userID
+        console.log(userID)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
+            .then(response => {
+                this.props.setProfile(response.data)
+            })
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        const userID = this.props.match.params.userID
+       if(prevProps.match.params.userID === userID) {
+           return
+       }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then(response => {
                 this.props.setProfile(response.data)
             })
@@ -28,7 +46,7 @@ export type MDTPType = {
 
 const mapDispatchToProps = {setProfile: setProfileAC}
 
-const mapStateToProps = (state: AppStateTypes) => {
+const mapStateToProps = (state: AppStateTypes): profilePageTypes => {
     return {
         userId: state.profilePage.userId,
         lookingForAJob: state.profilePage.lookingForAJob,
@@ -51,6 +69,7 @@ const mapStateToProps = (state: AppStateTypes) => {
     }
 }
 
-const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UserAPI)
+const UserWithRouter = withRouter(UserAPI)
 
-export default UserContainer
+export default connect(mapStateToProps, mapDispatchToProps)(UserWithRouter)
+
