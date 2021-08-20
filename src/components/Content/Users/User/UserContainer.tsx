@@ -1,7 +1,7 @@
 import React from "react";
 import User from "./User";
 import {connect} from "react-redux";
-import {profilePageTypes, setProfileAC} from "../../../../redux/profileReducer";
+import {profilePageTypes, setProfileAC, toggleIsFetchingAC} from "../../../../redux/profileReducer";
 import axios from "axios";
 import {AppStateTypes} from "../../../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -29,9 +29,11 @@ export class UserAPI extends React.Component<PropsType, {}> {
        if(prevProps.match.params.userID === userID) {
            return
        }
+       this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then(response => {
                 this.props.setProfile(response.data)
+                this.props.toggleIsFetching(false)
             })
     }
 
@@ -42,9 +44,13 @@ export class UserAPI extends React.Component<PropsType, {}> {
 
 export type MDTPType = {
     setProfile: (data: profilePageTypes) => void
+    toggleIsFetching: (value: boolean) => void
 }
 
-const mapDispatchToProps = {setProfile: setProfileAC}
+const mapDispatchToProps = {
+    setProfile: setProfileAC,
+    toggleIsFetching: toggleIsFetchingAC
+}
 
 const mapStateToProps = (state: AppStateTypes): profilePageTypes => {
     return {
@@ -65,7 +71,8 @@ const mapStateToProps = (state: AppStateTypes): profilePageTypes => {
         photos: {
             small: state.profilePage.photos.small,
             large: state.profilePage.photos.large
-        }
+        },
+        isFetching: state.profilePage.isFetching
     }
 }
 

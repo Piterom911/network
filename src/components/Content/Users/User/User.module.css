@@ -3,6 +3,15 @@
     overflow: hidden;
 }
 
+.notFetching {
+    transition: all .7s ease-in-out;
+    opacity: 1;
+}
+
+.opacityFetching {
+    opacity: 0;
+}
+
 .bgImage {
     position: absolute;
     left: 0;

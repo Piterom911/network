@@ -11,7 +11,9 @@ export default function PreloaderStar() {
         zIndex: 15,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        left: 0,
+        top: 0
     }
 
     return (
