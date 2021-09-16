@@ -12,8 +12,10 @@ type PropsType = {
     pagesCount: number
     currentPage: number
     isFetching: boolean
+    isFollowFetching: number[]
     onFollow: (userID: number) => void
     onUnfollow: (userID: number) => void
+    toggleFollowIsFetching: (userID: number, fetchingStatus: boolean) => void
     onSetUsers: (users: UserType[]) => void
     setCurrentPage: (currentPage: number) => void
     toggleIsFetching: (isFetching: boolean) => void
@@ -38,6 +40,8 @@ export default function Users(props: PropsType & ProfilePageType) {
                     { props.isFetching && <PreloaderStar /> }
                     {props.users.map((u, i) => {
                         return <OneUserCard id={u.id}
+                                            isFollowFetching={props.isFollowFetching}
+                                            toggleFollowIsFetching={props.toggleFollowIsFetching}
                                             onFollow={props.onFollow}
                                             onUnfollow={props.onUnfollow}
                                             onSetUsers={props.onSetUsers}

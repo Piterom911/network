@@ -4,25 +4,58 @@ import {UserType} from "../../../../redux/usersReducer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
 import userIcon2 from '../../../../assets/images/users/userIcon5.jpg'
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
 
 type PropsType = {
     background: string
     onFollow: (userID: number) => void
     onUnfollow: (userID: number) => void
+    toggleFollowIsFetching: (userID: number, fetchingStatus: boolean) => void
     onSetUsers: (users: UserType[]) => void
     isFetching: boolean
+    isFollowFetching: number[]
 }
 
 export default function OneUserCard(props: UserType & PropsType) {
-    const onUnfollowHandler = () => props.onUnfollow(props.id)
-    const onFollowHandler = () => props.onFollow(props.id)
+    const onUnfollowHandler = () => {
+        props.toggleFollowIsFetching(props.id, true)
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
+            withCredentials: true,
+            headers: {
+                'API-KEY': '18e1d480-771d-4bcb-b6a1-86b6a255bc4b'
+            },
+        }).then(response => {
+            if (response.data.resultCode === 0) {
+                props.onUnfollow(props.id)
+            }
+            props.toggleFollowIsFetching(props.id, false)
+        })
+    }
+    const onFollowHandler = () => {
+        props.toggleFollowIsFetching(props.id, true)
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {
+            withCredentials: true,
+            headers: {
+                'API-KEY': '18e1d480-771d-4bcb-b6a1-86b6a255bc4b'
+            },
+        }).then(response => {
+            if (response.data.resultCode === 0) {
+                props.onFollow(props.id)
+            }
+            props.toggleFollowIsFetching(props.id, false)
+        })
+    }
+
     const userIconAny = props.id % 3 === 0 ? userIcon2 : userIcon
+
+    const userIsFollowFetching = props.isFollowFetching.includes(props.id)
+
     return (
         <div className={`${s.wrapper} ${props.isFetching && s.opacity}`}>
             <div className={s.card}>
                 <div className={s.bgBox}>
-                    { props.followed ? <button onClick={onUnfollowHandler} className={s.follow}>Unfollow</button>
-                            : <button onClick={onFollowHandler} className={s.follow}>Follow</button> }
+                    { props.followed ? <button disabled={userIsFollowFetching} onClick={onUnfollowHandler} className={s.follow}>Unfollow</button>
+                            : <button disabled={userIsFollowFetching} onClick={onFollowHandler} className={s.follow}>Follow</button> }
                     <img className={s.bgImg} src={props.photos.large ? props.photos.large : props.background} alt="User Background"/>
                 </div>
                 <div className={s.infoBox}>

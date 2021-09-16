@@ -5,6 +5,7 @@ export type UsersPageTypes = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowFetching: number[]
 }
 
 export type PhotosType = {
@@ -26,13 +27,15 @@ const initialState = {
     pagesSize: 12,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    isFollowFetching: []
 }
 
 function usersReducer(state: UsersPageTypes = initialState, action: RootActionType) {
     switch (action.type) {
         case 'SET-USERS':
-            return {...state, users: action.users}
+            return {
+                ...state, users: action.users}
         case 'FOLLOW':
             return {
                 ...state, users: state.users.map(u => {
@@ -51,6 +54,13 @@ function usersReducer(state: UsersPageTypes = initialState, action: RootActionTy
                     return u
                 })
             }
+        case 'TOGGLE-FOLLOW-IS-FETCHING':
+            return {
+                ...state,
+                isFollowFetching: action.fetchingStatus
+                    ? [...state.isFollowFetching, action.userID]
+                    : state.isFollowFetching.filter( a => a !== action.userID)
+            }
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}
         case "SET-PAGES-COUNT":
@@ -64,6 +74,7 @@ function usersReducer(state: UsersPageTypes = initialState, action: RootActionTy
 
 type FollowType = ReturnType<typeof follow>
 type UnfollowType = ReturnType<typeof unfollow>
+type ToggleFollowIsFetching = ReturnType<typeof toggleFollowIsFetching>
 type SetUsersType = ReturnType<typeof setUsers>
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>
 type SetPagesCountType = ReturnType<typeof setTotalCount>
@@ -71,6 +82,7 @@ type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
 
 type RootActionType = FollowType
     | UnfollowType
+    | ToggleFollowIsFetching
     | SetUsersType
     | SetCurrentPageType
     | SetPagesCountType
@@ -78,6 +90,7 @@ type RootActionType = FollowType
 
 export const follow = (userID: number) => { return {type: 'FOLLOW', userID} as const }
 export const unfollow = (userID: number) => { return {type: 'UNFOLLOW', userID} as const }
+export const toggleFollowIsFetching = (userID: number, fetchingStatus: boolean) => { return {type: 'TOGGLE-FOLLOW-IS-FETCHING', userID, fetchingStatus} as const }
 export const setUsers = (users: Array<UserType>) => { return {type: 'SET-USERS', users} as const }
 export const setCurrentPage = (currentPage: number) => { return {type: 'SET-CURRENT-PAGE', currentPage} as const }
 export const setTotalCount = (totalCount: number) => { return {type: 'SET-PAGES-COUNT', totalCount} as const }
