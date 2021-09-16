@@ -1,4 +1,3 @@
-import React from 'react'
 import {postTypes} from "../../../../redux/postsReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {Dispatch} from "redux";

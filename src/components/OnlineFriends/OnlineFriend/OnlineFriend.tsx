@@ -6,10 +6,10 @@ type friendTypes = {
     avatar: string
 }
 
-export default function(props: friendTypes) {
+export default function OnlineFriend(props: friendTypes) {
     return (
         <div className={s.wrapper}>
-            <a href="#" className={s.link} ><img src={props.avatar} alt="my friend" className={s.avatar} /></a>
+            <a href="/#" className={s.link} ><img src={props.avatar} alt="my friend" className={s.avatar} /></a>
             <div className={s.name}>{props.name}</div>
         </div>
     )

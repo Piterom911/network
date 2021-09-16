@@ -28,7 +28,7 @@ export default function OneUserCard(props: UserType & PropsType) {
                 <div className={s.infoBox}>
                     <div className={s.privet}>
                         <div className={s.imgBox}>
-                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIconAny} alt="User Image"/>
+                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIconAny} alt="User"/>
                         </div>
                         <div className={s.data}>
                             <NavLink to={`/profile/${props.id}`} className={s.name}>{props.name}</NavLink>

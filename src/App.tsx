@@ -5,9 +5,6 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {OnlineFriends} from "./components/OnlineFriends/OnlineFriends";
 import {StoreType} from "./redux/store";
-import {Route} from "react-router-dom";
-import UsersContainer from "./components/Content/Users/UsersContainer";
-import User from "./components/Content/Users/User/User";
 
 type PropsType = {
     store: StoreType

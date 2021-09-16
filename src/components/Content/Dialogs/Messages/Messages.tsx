@@ -1,6 +1,5 @@
 import React from 'react'
 import {OneMessage} from "./OneMessage/OneMessage";
-import s from './Messages.module.css'
 import SendMessageContainer from "./SendMessage/SendMessageContainer";
 import {MessagesPropsType} from "./MessagesContainer";
 

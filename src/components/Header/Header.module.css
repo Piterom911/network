@@ -1,10 +1,16 @@
 .header {
     background: #21283b none repeat scroll 0 0;
-    display: block;
     height: 60px;
-    padding: 0 16px;
+    padding: 0 70px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
     z-index: 99;
     position: fixed;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoImg {
+    max-height: 50px;
 }

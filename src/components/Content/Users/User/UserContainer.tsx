@@ -16,8 +16,7 @@ export type PropsType = RouteComponentProps<PathParamsType> & profilePageTypes &
 export class UserAPI extends React.Component<PropsType, {}> {
 
     componentDidMount() {
-        const userID = this.props.match.params.userID
-        console.log(userID)
+        // const userID = this.props.match.params.userID
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
             .then(response => {
                 this.props.setProfile(response.data)

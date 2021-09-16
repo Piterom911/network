@@ -40,7 +40,15 @@ export default function User(props: profilePageTypes) {
                            <h4 className={s.boxHeading}>Contacts & Socials</h4>
                            <p className={s.descWrapper}>
                                <span className={s.desc}>Instagram: </span>
-                               <a href="#" className={s.descRes}>{props.contacts.instagram
+                               <a href={props.contacts.instagram
+                                   || props.contacts.vk
+                                   || props.contacts.youtube
+                                   || props.contacts.website
+                                   || props.contacts.mainLink
+                                   || props.contacts.twitter
+                                   || props.contacts.github
+                                   || props.contacts.facebook
+                               } className={s.descRes}>{props.contacts.instagram
                                || props.contacts.vk
                                || props.contacts.youtube
                                || props.contacts.website
@@ -52,7 +60,15 @@ export default function User(props: profilePageTypes) {
                            </p>
                            <p className={s.descWrapper}>
                                <span className={s.desc}>GitHub: </span>
-                               <a href="#" className={s.descRes}>{props.contacts.github
+                               <a href={props.contacts.instagram
+                               || props.contacts.vk
+                               || props.contacts.youtube
+                               || props.contacts.website
+                               || props.contacts.mainLink
+                               || props.contacts.twitter
+                               || props.contacts.github
+                               || props.contacts.facebook
+                               } className={s.descRes}>{props.contacts.github
                                || props.contacts.twitter
                                || props.contacts.mainLink
                                || props.contacts.website
@@ -64,7 +80,15 @@ export default function User(props: profilePageTypes) {
                            </p>
                            <p className={s.descWrapper}>
                                <span className={s.desc}>FaceBook: </span>
-                               <a href="#" className={s.descRes}>{props.contacts.facebook
+                               <a href={props.contacts.instagram
+                               || props.contacts.vk
+                               || props.contacts.youtube
+                               || props.contacts.website
+                               || props.contacts.mainLink
+                               || props.contacts.twitter
+                               || props.contacts.github
+                               || props.contacts.facebook
+                               } className={s.descRes}>{props.contacts.facebook
                                || props.contacts.website
                                || props.contacts.mainLink
                                || props.contacts.twitter

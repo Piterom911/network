@@ -1,4 +1,3 @@
-import React from 'react'
 import {addPostAC, newPostTextAC} from "../../../../redux/postsReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {PostTop} from "./PostTop";

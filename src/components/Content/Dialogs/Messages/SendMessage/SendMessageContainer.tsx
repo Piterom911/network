@@ -1,13 +1,12 @@
-import React from 'react'
-import {addMessageAC, dialogsPageTypes, newMessageTextAC} from "../../../../../redux/dialogsReducer";
-import {AppStateTypes, StoreType} from "../../../../../redux/store";
+import {addMessageAC, newMessageTextAC} from "../../../../../redux/dialogsReducer";
+import {AppStateTypes} from "../../../../../redux/store";
 import {SendMessage} from "./SendMessage";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
-type SendMessagePropsType = {
-    store: StoreType
-}
+// type SendMessagePropsType = {
+//     store: StoreType
+// }
 
 // export function SendMessageContainer1(props: SendMessagePropsType) {
 //

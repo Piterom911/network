@@ -1,6 +1,3 @@
-import React from 'react'
-import s from './Dialogs.module.css'
-import {OneDialog} from "./OneDialog/OneDialog";
 import {dialogTypes} from "../../../redux/dialogsReducer";
 import {AppStateTypes} from "../../../redux/store";
 import {connect} from "react-redux";
