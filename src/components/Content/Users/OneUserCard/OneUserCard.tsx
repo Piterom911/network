@@ -3,8 +3,8 @@ import s from './OneUserCard.module.css'
 import {UserType} from "../../../../redux/usersReducer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
 import userIcon2 from '../../../../assets/images/users/userIcon5.jpg'
-import { NavLink } from 'react-router-dom';
-import axios from "axios";
+import {NavLink} from 'react-router-dom';
+import {followAPI} from "../../../../apis/api";
 
 type PropsType = {
     background: string
@@ -19,31 +19,23 @@ type PropsType = {
 export default function OneUserCard(props: UserType & PropsType) {
     const onUnfollowHandler = () => {
         props.toggleFollowIsFetching(props.id, true)
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '18e1d480-771d-4bcb-b6a1-86b6a255bc4b'
-            },
-        }).then(response => {
-            if (response.data.resultCode === 0) {
-                props.onUnfollow(props.id)
-            }
-            props.toggleFollowIsFetching(props.id, false)
-        })
+        followAPI.unfollow(props.id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.onUnfollow(props.id)
+                }
+                props.toggleFollowIsFetching(props.id, false)
+            })
     }
     const onFollowHandler = () => {
         props.toggleFollowIsFetching(props.id, true)
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '18e1d480-771d-4bcb-b6a1-86b6a255bc4b'
-            },
-        }).then(response => {
-            if (response.data.resultCode === 0) {
-                props.onFollow(props.id)
-            }
-            props.toggleFollowIsFetching(props.id, false)
-        })
+        followAPI.follow(props.id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.onFollow(props.id)
+                }
+                props.toggleFollowIsFetching(props.id, false)
+            })
     }
 
     const userIconAny = props.id % 3 === 0 ? userIcon2 : userIcon
@@ -54,14 +46,18 @@ export default function OneUserCard(props: UserType & PropsType) {
         <div className={`${s.wrapper} ${props.isFetching && s.opacity}`}>
             <div className={s.card}>
                 <div className={s.bgBox}>
-                    { props.followed ? <button disabled={userIsFollowFetching} onClick={onUnfollowHandler} className={s.follow}>Unfollow</button>
-                            : <button disabled={userIsFollowFetching} onClick={onFollowHandler} className={s.follow}>Follow</button> }
-                    <img className={s.bgImg} src={props.photos.large ? props.photos.large : props.background} alt="User Background"/>
+                    {props.followed ? <button disabled={userIsFollowFetching} onClick={onUnfollowHandler}
+                                              className={s.follow}>Unfollow</button>
+                        : <button disabled={userIsFollowFetching} onClick={onFollowHandler}
+                                  className={s.follow}>Follow</button>}
+                    <img className={s.bgImg} src={props.photos.large ? props.photos.large : props.background}
+                         alt="User Background"/>
                 </div>
                 <div className={s.infoBox}>
                     <div className={s.privet}>
                         <div className={s.imgBox}>
-                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIconAny} alt="User"/>
+                            <img className={s.userImg} src={props.photos.small ? props.photos.small : userIconAny}
+                                 alt="User"/>
                         </div>
                         <div className={s.data}>
                             <NavLink to={`/profile/${props.id}`} className={s.name}>{props.name}</NavLink>

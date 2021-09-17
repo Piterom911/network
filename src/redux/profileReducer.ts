@@ -1,6 +1,7 @@
 
-export type profilePageTypes = {
+export type ProfilePageTypes = {
     userId: number
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -30,8 +31,9 @@ export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 
 export type dialogsActions = SetProfileACType | ToggleIsFetchingACType
 
-const initialState: profilePageTypes = {
+const initialState: ProfilePageTypes = {
     userId: 11450,
+    aboutMe: '',
     lookingForAJob: false,
     lookingForAJobDescription: '',
     fullName: '',
@@ -52,7 +54,7 @@ const initialState: profilePageTypes = {
     isFetching: false
 }
 
-function profileReducer(state: profilePageTypes = initialState, action: dialogsActions): profilePageTypes {
+function profileReducer(state: ProfilePageTypes = initialState, action: dialogsActions): ProfilePageTypes {
     switch (action.type) {
         case 'SET-PROFILE':
             return action.data
@@ -63,7 +65,7 @@ function profileReducer(state: profilePageTypes = initialState, action: dialogsA
     }
 }
 
-export const setProfileAC = (data: profilePageTypes) => { return {type: 'SET-PROFILE', data} as const }
+export const setProfileAC = (data: ProfilePageTypes) => { return {type: 'SET-PROFILE', data} as const }
 export const toggleIsFetchingAC = (value: boolean) => { return {type: 'TOGGLE-IS-FETCHING', value} as const }
 
 export default profileReducer

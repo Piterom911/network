@@ -1,25 +1,26 @@
 import React from "react";
 import User from "./User";
 import {connect} from "react-redux";
-import {profilePageTypes, setProfileAC, toggleIsFetchingAC} from "../../../../redux/profileReducer";
+import {ProfilePageTypes, setProfileAC, toggleIsFetchingAC} from "../../../../redux/profileReducer";
 import axios from "axios";
 import {AppStateTypes} from "../../../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileAPI} from "../../../../apis/api";
 
 
 type PathParamsType = {
     userID: string,
 }
 
-export type PropsType = RouteComponentProps<PathParamsType> & profilePageTypes & MDTPType
+export type PropsType = RouteComponentProps<PathParamsType> & ProfilePageTypes & MDTPType
 
 export class UserAPI extends React.Component<PropsType, {}> {
 
     componentDidMount() {
         // const userID = this.props.match.params.userID
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`)
-            .then(response => {
-                this.props.setProfile(response.data)
+        profileAPI.getProfile(this.props.userId)
+            .then(data => {
+                this.props.setProfile(data)
             })
     }
 
@@ -29,9 +30,9 @@ export class UserAPI extends React.Component<PropsType, {}> {
            return
        }
        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
-            .then(response => {
-                this.props.setProfile(response.data)
+        profileAPI.getProfile(+userID)
+            .then(data => {
+                this.props.setProfile(data)
                 this.props.toggleIsFetching(false)
             })
     }
@@ -42,7 +43,7 @@ export class UserAPI extends React.Component<PropsType, {}> {
 }
 
 export type MDTPType = {
-    setProfile: (data: profilePageTypes) => void
+    setProfile: (data: ProfilePageTypes) => void
     toggleIsFetching: (value: boolean) => void
 }
 
@@ -51,9 +52,10 @@ const mapDispatchToProps = {
     toggleIsFetching: toggleIsFetchingAC
 }
 
-const mapStateToProps = (state: AppStateTypes): profilePageTypes => {
+const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
     return {
         userId: state.profilePage.userId,
+        aboutMe: state.profilePage.aboutMe,
         lookingForAJob: state.profilePage.lookingForAJob,
         lookingForAJobDescription: state.profilePage.lookingForAJobDescription,
         fullName: state.profilePage.fullName,

@@ -3,10 +3,10 @@ import s from './User.module.css'
 import bgImage from '../../../../assets/images/users/user-cover6.jpg'
 import userIconMan from '../../../../assets/images/users/userIcon4.jpg'
 import userIconWoman from '../../../../assets/images/users/userIcon5.jpg'
-import {profilePageTypes} from "../../../../redux/profileReducer";
+import {ProfilePageTypes} from "../../../../redux/profileReducer";
 import PreloaderStar from "../../../../icons/Preloaders/PreloaderStar";
 
-export default function User(props: profilePageTypes) {
+export default function User(props: ProfilePageTypes) {
     const userIcon = props.userId % 3 === 0 ? userIconWoman : userIconMan
     return (
         <div className={`contentCenter`}>
@@ -18,7 +18,7 @@ export default function User(props: profilePageTypes) {
                    <h3 className={s.name}>{props.fullName}</h3>
                    <div className={s.content}>
                        <div className={`themeBorder ${s.infoBox}`}>
-                           <h4 className={s.boxHeading}>Common Info</h4>
+                           <h4 className={s.boxHeading}>General Info</h4>
                            <p className={s.descWrapper}>
                                <span className={s.desc}>Looking for a job: </span>
                                <span className={s.descRes}>{props.lookingForAJob ? 'Yes I am' : `No I'm not`}</span>

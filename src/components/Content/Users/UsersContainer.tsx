@@ -23,8 +23,8 @@ import bg9 from "../../../assets/images/users/user-cover9.jpg";
 import bg10 from "../../../assets/images/users/user-cover10.jpg";
 import bg11 from "../../../assets/images/users/user-cover14.jpg";
 import bg12 from "../../../assets/images/users/user-cover11.jpg";
-import axios from "axios";
 import s from "./Users.module.css";
+import {usersAPI} from "../../../apis/api";
 
 type StateType = {
     imagesBg: Array<string>
@@ -43,12 +43,10 @@ class UsersAPI extends React.Component<UsersPropsType & ProfilePageType, StateTy
     }
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pagesSize}&page=${this.props.currentPage}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
+        usersAPI.getUsers(this.props.currentPage, this.props.pagesSize)
+            .then(data => {
+                this.props.setUsers(data.items)
+                this.props.setTotalCount(data.totalCount)
             })
     }
 
@@ -57,11 +55,9 @@ class UsersAPI extends React.Component<UsersPropsType & ProfilePageType, StateTy
         console.log(this.props)
         this.props.setCurrentPage(currentPage)
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pagesSize}&page=${currentPage}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setUsers(response.data.items)
+        usersAPI.getUsers(currentPage, this.props.pagesSize)
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.toggleIsFetching(false)
             })
     }
