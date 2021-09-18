@@ -1,20 +1,13 @@
 import React from "react";
 import {Auth} from "./Auth";
-import {setAuthUserData} from "../../../redux/authReducer";
-import { connect } from "react-redux";
+import {getAuthUserData} from "../../../redux/authReducer";
+import {connect} from "react-redux";
 import {AppStateTypes} from "../../../redux/store";
-import {authAPI} from "../../../apis/api";
 
 class AuthContainer extends React.Component<MSPType & MDPType, {  }> {
 
     componentDidMount() {
-        authAPI.authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    const {id, login, email} = data.data
-                    this.props.setAuthUserData(id, email, login)
-                }
-            })
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -30,7 +23,7 @@ type MSPType = {
 }
 
 type MDPType = {
-    setAuthUserData: (id: number, email: string, login: string) => void
+    getAuthUserData: () => void
 }
 
 const mapStateToProps = (state: AppStateTypes): MSPType => {
@@ -40,4 +33,4 @@ const mapStateToProps = (state: AppStateTypes): MSPType => {
     }
 }
 
-export default connect(mapStateToProps, {setAuthUserData})(AuthContainer)
+export default connect(mapStateToProps, {getAuthUserData})(AuthContainer)

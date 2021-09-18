@@ -1,12 +1,12 @@
 import {v1} from "uuid";
 
-export type onlineFriendTypes = {
+export type OnlineFriendTypes = {
     id: string
     avatar: string
     name: string
 }
-export type rightSidebarTypes = {
-    onlineFriends: onlineFriendTypes[]
+export type RightSidebarTypes = {
+    onlineFriends: OnlineFriendTypes[]
 }
 
 const initialState = {
@@ -64,7 +64,7 @@ const initialState = {
     ]
 }
 
-function rightSidebar(state: rightSidebarTypes = initialState, action: any): rightSidebarTypes {
+function rightSidebar(state: RightSidebarTypes = initialState, action: any): RightSidebarTypes {
     return state
 }
 

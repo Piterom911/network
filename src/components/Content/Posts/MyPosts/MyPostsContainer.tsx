@@ -1,6 +1,5 @@
 import {postTypes} from "../../../../redux/postsReducer";
 import {AppStateTypes} from "../../../../redux/store";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {MyPosts} from "./MyPosts";
 
@@ -15,7 +14,6 @@ const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
         posts: state.postsPage.posts
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch) => {}
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, {})(MyPosts)
 export default MyPostsContainer

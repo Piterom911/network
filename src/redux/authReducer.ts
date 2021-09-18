@@ -1,3 +1,6 @@
+import {authAPI} from "../apis/api";
+import {RootThunkType} from "./store";
+
 export type AuthInitialStateTypes = {
     id: null | number,
     email: null | string,
@@ -14,7 +17,7 @@ const initialState = {
     isFetching: true,
 }
 
-function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRootActionType): AuthInitialStateTypes {
+function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRootActionsType): AuthInitialStateTypes {
     switch (action.type) {
         case "SET-AUTH-USER-DATA": {
             return {
@@ -29,7 +32,7 @@ function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRo
     }
 }
 
-type AuthRootActionType = SetAuthUserDataType
+export type AuthRootActionsType = SetAuthUserDataType
 
 type SetAuthUserDataType = {
     type: 'SET-AUTH-USER-DATA'
@@ -42,6 +45,14 @@ type SetAuthUserDataType = {
 
 export const setAuthUserData = (id: number, email: string, login: string): SetAuthUserDataType => {
     return {type: 'SET-AUTH-USER-DATA', payload: {id, email, login}}
+}
+
+export const getAuthUserData = (): RootThunkType => async dispatch => {
+    const authData = await authAPI.authMe()
+            if (authData.resultCode === 0) {
+                const {id, login, email} = authData.data
+                dispatch(setAuthUserData(id, email, login))
+            }
 }
 
 export default authReducer

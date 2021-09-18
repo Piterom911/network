@@ -1,3 +1,5 @@
+import {RootThunkType} from "./store";
+import {followAPI, usersAPI} from "../apis/api";
 
 export type UsersPageTypes = {
     users: UserType[]
@@ -31,7 +33,7 @@ const initialState = {
     isFollowFetching: []
 }
 
-function usersReducer(state: UsersPageTypes = initialState, action: RootActionType) {
+function usersReducer(state: UsersPageTypes = initialState, action: UsersRootActionsType) {
     switch (action.type) {
         case 'SET-USERS':
             return {
@@ -80,7 +82,7 @@ type SetCurrentPageType = ReturnType<typeof setCurrentPage>
 type SetPagesCountType = ReturnType<typeof setTotalCount>
 type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
 
-type RootActionType = FollowType
+export type UsersRootActionsType = FollowType
     | UnfollowType
     | ToggleFollowIsFetching
     | SetUsersType
@@ -95,5 +97,25 @@ export const setUsers = (users: Array<UserType>) => { return {type: 'SET-USERS',
 export const setCurrentPage = (currentPage: number) => { return {type: 'SET-CURRENT-PAGE', currentPage} as const }
 export const setTotalCount = (totalCount: number) => { return {type: 'SET-PAGES-COUNT', totalCount} as const }
 export const toggleIsFetching = (isFetching: boolean) => { return {type: 'TOGGLE-IS-FETCHING', isFetching} as const }
+
+export const setFollow = (userID: number): RootThunkType => async dispatch => {
+    dispatch(toggleFollowIsFetching(userID, true))
+    const followData = await followAPI.follow(userID)
+    if (followData.resultCode === 0)  dispatch(follow(userID))
+    dispatch(toggleFollowIsFetching(userID, false))
+}
+export const setUnfollow = (userID: number): RootThunkType => async dispatch => {
+    dispatch(toggleFollowIsFetching(userID, true))
+    const followData = await followAPI.unfollow(userID)
+    if (followData.resultCode === 0)  dispatch(unfollow(userID))
+    dispatch(toggleFollowIsFetching(userID, false))
+}
+export const getUsers = (currentPage: number, pageSize: number): RootThunkType => async dispatch => {
+    const users = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setUsers(users.items))
+    dispatch(toggleIsFetching(false))
+    dispatch(setTotalCount(users.totalCount))
+
+}
 
 export default usersReducer

@@ -1,3 +1,5 @@
+import {profileAPI} from "../apis/api";
+import {RootThunkType} from "./store";
 
 export type ProfilePageTypes = {
     userId: number
@@ -29,7 +31,7 @@ export type PhotosType ={
 export type SetProfileACType = ReturnType<typeof setProfileAC>
 export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 
-export type dialogsActions = SetProfileACType | ToggleIsFetchingACType
+export type DialogsActionsRootType = SetProfileACType | ToggleIsFetchingACType
 
 const initialState: ProfilePageTypes = {
     userId: 11450,
@@ -54,7 +56,7 @@ const initialState: ProfilePageTypes = {
     isFetching: false
 }
 
-function profileReducer(state: ProfilePageTypes = initialState, action: dialogsActions): ProfilePageTypes {
+function profileReducer(state: ProfilePageTypes = initialState, action: DialogsActionsRootType): ProfilePageTypes {
     switch (action.type) {
         case 'SET-PROFILE':
             return action.data
@@ -67,5 +69,12 @@ function profileReducer(state: ProfilePageTypes = initialState, action: dialogsA
 
 export const setProfileAC = (data: ProfilePageTypes) => { return {type: 'SET-PROFILE', data} as const }
 export const toggleIsFetchingAC = (value: boolean) => { return {type: 'TOGGLE-IS-FETCHING', value} as const }
+
+export const getProfile = (userID: number): RootThunkType => async dispatch => {
+    dispatch(toggleIsFetchingAC(true))
+    const profile = await profileAPI.getProfile(+userID)
+    dispatch(setProfileAC(profile))
+    dispatch(toggleIsFetchingAC(false))
+}
 
 export default profileReducer

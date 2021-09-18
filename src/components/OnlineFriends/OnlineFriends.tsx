@@ -1,16 +1,17 @@
 import React from 'react'
 import s from './OnlineFriends.module.css'
 import OnlineFriend from "./OnlineFriend/OnlineFriend";
-import {onlineFriendTypes} from "../../redux/rightSidebar";
+import {useSelector} from "react-redux";
+import {AppStateTypes} from "../../redux/store";
+import {OnlineFriendTypes} from "../../redux/rightSidebar";
 
-type friendsTypes = {
-    friends: onlineFriendTypes[]
-}
+export function OnlineFriends() {
 
-export function OnlineFriends(props: friendsTypes) {
+    const friends = useSelector<AppStateTypes, OnlineFriendTypes[]>( state => state.rightSidebar.onlineFriends)
+
     return (
         <div className={s.sidebar}>
-            {props.friends.map( (f: any) => <OnlineFriend key={f.id} name={f.name} avatar={f.avatar} /> )}
+            {friends.map( (f: any) => <OnlineFriend key={f.id} name={f.name} avatar={f.avatar} /> )}
         </div>
     )
 }

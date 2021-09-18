@@ -1,11 +1,9 @@
 import React from "react";
 import User from "./User";
 import {connect} from "react-redux";
-import {ProfilePageTypes, setProfileAC, toggleIsFetchingAC} from "../../../../redux/profileReducer";
-import axios from "axios";
+import {getProfile, ProfilePageTypes} from "../../../../redux/profileReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {profileAPI} from "../../../../apis/api";
 
 
 type PathParamsType = {
@@ -17,24 +15,14 @@ export type PropsType = RouteComponentProps<PathParamsType> & ProfilePageTypes &
 export class UserAPI extends React.Component<PropsType, {}> {
 
     componentDidMount() {
-        // const userID = this.props.match.params.userID
-        profileAPI.getProfile(this.props.userId)
-            .then(data => {
-                this.props.setProfile(data)
-            })
+        const userID = this.props.match.params.userID
+        this.props.getProfile(+userID)
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
         const userID = this.props.match.params.userID
-       if(prevProps.match.params.userID === userID) {
-           return
-       }
-       this.props.toggleIsFetching(true)
-        profileAPI.getProfile(+userID)
-            .then(data => {
-                this.props.setProfile(data)
-                this.props.toggleIsFetching(false)
-            })
+        if (prevProps.match.params.userID === userID) return
+        this.props.getProfile(+userID)
     }
 
     render() {
@@ -43,13 +31,7 @@ export class UserAPI extends React.Component<PropsType, {}> {
 }
 
 export type MDTPType = {
-    setProfile: (data: ProfilePageTypes) => void
-    toggleIsFetching: (value: boolean) => void
-}
-
-const mapDispatchToProps = {
-    setProfile: setProfileAC,
-    toggleIsFetching: toggleIsFetchingAC
+    getProfile: (userID: number) => void
 }
 
 const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
@@ -79,5 +61,5 @@ const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
 
 const UserWithRouter = withRouter(UserAPI)
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserWithRouter)
+export default connect(mapStateToProps, {getProfile})(UserWithRouter)
 

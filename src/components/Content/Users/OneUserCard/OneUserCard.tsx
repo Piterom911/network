@@ -4,13 +4,11 @@ import {UserType} from "../../../../redux/usersReducer";
 import userIcon from '../../../../assets/images/users/userIcon4.jpg'
 import userIcon2 from '../../../../assets/images/users/userIcon5.jpg'
 import {NavLink} from 'react-router-dom';
-import {followAPI} from "../../../../apis/api";
 
 type PropsType = {
     background: string
-    onFollow: (userID: number) => void
-    onUnfollow: (userID: number) => void
-    toggleFollowIsFetching: (userID: number, fetchingStatus: boolean) => void
+    setFollow: (userID: number) => void
+    setUnfollow: (userID: number) => void
     onSetUsers: (users: UserType[]) => void
     isFetching: boolean
     isFollowFetching: number[]
@@ -18,24 +16,10 @@ type PropsType = {
 
 export default function OneUserCard(props: UserType & PropsType) {
     const onUnfollowHandler = () => {
-        props.toggleFollowIsFetching(props.id, true)
-        followAPI.unfollow(props.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.onUnfollow(props.id)
-                }
-                props.toggleFollowIsFetching(props.id, false)
-            })
+        props.setUnfollow(props.id)
     }
     const onFollowHandler = () => {
-        props.toggleFollowIsFetching(props.id, true)
-        followAPI.follow(props.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.onFollow(props.id)
-                }
-                props.toggleFollowIsFetching(props.id, false)
-            })
+        props.setFollow(props.id)
     }
 
     const userIconAny = props.id % 3 === 0 ? userIcon2 : userIcon

@@ -10,7 +10,7 @@ import {NavItem} from "./NavItem/NavItem";
 export function Navbar() {
     return (
         <div className={s.navbar}>
-            <NavItem name={'Profile'} to={'/profile'}>
+            <NavItem name={'Profile'} to={'/profile/11450'}>
                 <IconUser fill={'white'} />
             </NavItem>
             <NavItem name={'Messages'} to={'/messages'}>

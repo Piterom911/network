@@ -13,9 +13,8 @@ type PropsType = {
     currentPage: number
     isFetching: boolean
     isFollowFetching: number[]
-    onFollow: (userID: number) => void
-    onUnfollow: (userID: number) => void
-    toggleFollowIsFetching: (userID: number, fetchingStatus: boolean) => void
+    setFollow: (userID: number) => void
+    setUnfollow: (userID: number) => void
     onSetUsers: (users: UserType[]) => void
     setCurrentPage: (currentPage: number) => void
     toggleIsFetching: (isFetching: boolean) => void
@@ -27,23 +26,23 @@ export default function Users(props: PropsType & ProfilePageType) {
             <div className={`themeBorder themeBorderPad`}>
                 <div className={s.usersTop}>
                     <h3>{props.title ? props.title : 'People Page'}</h3>
-                    {props.pagesCount > 1 && <div className={s.pagination}>
-                        <span onClick={() => props.setCurrentPage(1)} className={s.goToEnd}>&laquo; </span>
-                        {props.currentPage > 4 && '... '}
-                        {props.pagesRender}
-                        {props.currentPage < props.pagesCount - 3 && ' ...'}
-                        <span onClick={() => props.setCurrentPage(props.pagesCount)}
-                              className={s.goToEnd}> &raquo;</span>
-                    </div>}
+                    {props.pagesCount > 1
+                        && <div className={s.pagination}>
+                            <span onClick={() => props.setCurrentPage(1)} className={s.goToEnd}>&laquo; </span>
+                            {props.currentPage > 4 && '... '}
+                            {props.pagesRender}
+                            {props.currentPage < props.pagesCount - 3 && ' ...'}
+                            <span onClick={() => props.setCurrentPage(props.pagesCount)}
+                                  className={s.goToEnd}> &raquo;</span>
+                        </div>}
                 </div>
-                <div className={s.usersWrapper + ' ' + s[props.className as string] }>
-                    { props.isFetching && <PreloaderStar /> }
+                <div className={s.usersWrapper + ' ' + s[props.className as string]}>
+                    {props.isFetching && <PreloaderStar/>}
                     {props.users.map((u, i) => {
                         return <OneUserCard id={u.id}
                                             isFollowFetching={props.isFollowFetching}
-                                            toggleFollowIsFetching={props.toggleFollowIsFetching}
-                                            onFollow={props.onFollow}
-                                            onUnfollow={props.onUnfollow}
+                                            setFollow={props.setFollow}
+                                            setUnfollow={props.setUnfollow}
                                             onSetUsers={props.onSetUsers}
                                             background={props.imagesBg[i]}
                                             photos={u.photos}
