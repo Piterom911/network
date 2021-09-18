@@ -7,6 +7,7 @@ import {Route} from 'react-router-dom';
 import MessagesContainer from "./Dialogs/Messages/MessagesContainer";
 import UsersContainer from "./Users/UsersContainer";
 import Profile from "./Profile/Profile";
+import {Login} from "./Login/Login";
 
 export function Content() {
     return (
@@ -21,6 +22,7 @@ export function Content() {
             </div>
             <Route path={'/profile/:userID?'} render={() => <Profile/>}/>
             <Route path={'/users'} render={() => <UsersContainer/>}/>
+            <Route path={'/login'} render={() => <Login/>}/>
         </>
     )
 }

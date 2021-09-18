@@ -5,9 +5,11 @@ import userIconMan from '../../../../assets/images/users/userIcon4.jpg'
 import userIconWoman from '../../../../assets/images/users/userIcon5.jpg'
 import {ProfilePageTypes} from "../../../../redux/profileReducer";
 import PreloaderStar from "../../../../icons/Preloaders/PreloaderStar";
+import {Redirect} from "react-router-dom";
 
 export default function User(props: ProfilePageTypes) {
     const userIcon = props.userId % 3 === 0 ? userIconWoman : userIconMan
+    return <Redirect to={'/login'}/>
     return (
         <div className={`contentCenter`}>
             <div className={`themeBorder themeBorderPad ${s.wrapper}`}>

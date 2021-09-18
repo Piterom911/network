@@ -1,0 +1,13 @@
+.title {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    padding: 30px 70px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .45);
+    text-transform: uppercase;
+}
