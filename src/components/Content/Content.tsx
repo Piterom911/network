@@ -13,7 +13,7 @@ export function Content() {
     return (
         <>
             <div className={s.wrapper}>
-                <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
+                <Route path={'/'} render={() => <Redirect to={'/profile/11450'}/>}/>
                 <Route path={['/posts', '/messages']} render={() => <LeftSide/>}/>
                 <div className={`innerCenter`}>
                     <Route path={'/posts'} render={() => <Posts/>}/>

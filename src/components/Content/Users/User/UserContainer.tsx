@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getProfile, ProfilePageTypes} from "../../../../redux/profileReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 type PathParamsType = {
@@ -59,7 +60,9 @@ const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
     }
 }
 
-const UserWithRouter = withRouter(UserAPI)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getProfile}),
+    withRouter
+)(UserAPI)
 
-export default connect(mapStateToProps, {getProfile})(UserWithRouter)
 

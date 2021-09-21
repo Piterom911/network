@@ -2,8 +2,9 @@ import {connect} from "react-redux";
 import {Messages} from "./Messages";
 import {messageTypes} from "../../../../redux/dialogsReducer";
 import {AppStateTypes} from "../../../../redux/store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import withAuthRedirect from "../../../../hoc/withAuthRedirect";
+import React from "react";
 
 type mapStateToPropsType = {
     messages: messageTypes[]
@@ -24,4 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Messages))
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Messages)
