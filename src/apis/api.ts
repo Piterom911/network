@@ -47,7 +47,7 @@ export const usersAPI = {
             .then(res => {
                 return res.data
             })
-    }
+    },
 }
 export const authAPI = {
     authMe() {
@@ -55,7 +55,7 @@ export const authAPI = {
             .then(res => {
                 return res.data
             })
-    }
+    },
 }
 export const profileAPI = {
     getProfile(userID: number) {
@@ -63,5 +63,11 @@ export const profileAPI = {
             .then(res => {
                 return res.data
             })
+    },
+    getStatus(userID: number) {
+        return instance.get(`profile/status/${userID}`)
+    },
+    setStatus(status: string) {
+        return instance.put('profile/status', {status})
     }
 }

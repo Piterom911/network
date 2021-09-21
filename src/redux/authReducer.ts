@@ -2,17 +2,17 @@ import {authAPI} from "../apis/api";
 import {RootThunkType} from "./store";
 
 export type AuthInitialStateTypes = {
-    id: null | number,
-    email: null | string,
-    login: null | string,
+    id: number,
+    email: string,
+    login: string,
     isFetching: boolean,
     isAuth: boolean
 }
 
 const initialState = {
-    id: null,
-    email: null,
-    login: null,
+    id: 0,
+    email: '',
+    login: '',
     isAuth: false,
     isFetching: true,
 }

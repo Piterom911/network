@@ -5,25 +5,33 @@ import {getProfile, ProfilePageTypes} from "../../../../redux/profileReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {getStatus, setNewStatus} from "../../../../redux/statusReducer";
 
 
 type PathParamsType = {
     userID: string,
 }
 
-export type PropsType = RouteComponentProps<PathParamsType> & ProfilePageTypes & MDTPType
+export type AddPropsType = {
+    idMe: number
+    status: string
+}
+
+export type PropsType = RouteComponentProps<PathParamsType> & ProfilePageTypes & MDTPType & AddPropsType
 
 export class UserAPI extends React.Component<PropsType, {}> {
 
     componentDidMount() {
         const userID = this.props.match.params.userID
         this.props.getProfile(+userID)
+        this.props.getStatus(+userID)
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
         const userID = this.props.match.params.userID
         if (prevProps.match.params.userID === userID) return
         this.props.getProfile(+userID)
+        this.props.getStatus(+userID)
     }
 
     render() {
@@ -33,9 +41,11 @@ export class UserAPI extends React.Component<PropsType, {}> {
 
 export type MDTPType = {
     getProfile: (userID: number) => void
+    getStatus: (userID: number) => void
+    setNewStatus: (status: string) => void
 }
 
-const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
+const mapStateToProps = (state: AppStateTypes): ProfilePageTypes & AddPropsType => {
     return {
         userId: state.profilePage.userId,
         aboutMe: state.profilePage.aboutMe,
@@ -56,13 +66,15 @@ const mapStateToProps = (state: AppStateTypes): ProfilePageTypes => {
             small: state.profilePage.photos.small,
             large: state.profilePage.photos.large
         },
-        isFetching: state.profilePage.isFetching
+        isFetching: state.profilePage.isFetching,
+        status: state.status.status,
+        idMe: state.auth.id,
     }
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile}),
-    withRouter
+    withRouter,
+    connect(mapStateToProps, {getProfile, getStatus, setNewStatus}),
 )(UserAPI)
 
 
