@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 export default function User(props: ProfilePageTypes) {
     const userIcon = props.userId % 3 === 0 ? userIconWoman : userIconMan
-    return <Redirect to={'/login'}/>
+    // return <Redirect to={'/login'}/>
     return (
         <div className={`contentCenter`}>
             <div className={`themeBorder themeBorderPad ${s.wrapper}`}>

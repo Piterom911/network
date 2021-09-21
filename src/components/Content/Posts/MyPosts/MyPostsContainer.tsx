@@ -15,5 +15,4 @@ const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
     }
 }
 
-const MyPostsContainer = connect(mapStateToProps, {})(MyPosts)
-export default MyPostsContainer
+export default connect(mapStateToProps, {})(MyPosts)

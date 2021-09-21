@@ -3,6 +3,7 @@ import {Messages} from "./Messages";
 import {messageTypes} from "../../../../redux/dialogsReducer";
 import {AppStateTypes} from "../../../../redux/store";
 import {Dispatch} from "redux";
+import withAuthRedirect from "../../../../hoc/withAuthRedirect";
 
 type mapStateToPropsType = {
     messages: messageTypes[]
@@ -23,5 +24,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
-export default MessagesContainer
+export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Messages))

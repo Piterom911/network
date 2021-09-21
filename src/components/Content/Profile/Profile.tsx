@@ -1,8 +1,9 @@
 import React from "react";
 import UsersContainer from "../Users/UsersContainer";
 import UserContainer from "../Users/User/UserContainer";
+import withAuthRedirect from "../../../hoc/withAuthRedirect";
 
-export default function Profile() {
+function Profile() {
     return (
         <>
             <UserContainer />
@@ -10,3 +11,5 @@ export default function Profile() {
         </>
     )
 }
+
+export default withAuthRedirect(Profile)
