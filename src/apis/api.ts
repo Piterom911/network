@@ -56,6 +56,12 @@ export const authAPI = {
                 return res.data
             })
     },
+    logIn(email: string, password: string, rememberMe: boolean, captcha: boolean) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha})
+    },
+    logOut() {
+        return instance.delete('auth/login')
+    },
 }
 export const profileAPI = {
     getProfile(userID: number) {

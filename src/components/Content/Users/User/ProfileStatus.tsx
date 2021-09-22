@@ -1,6 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from "./User.module.css";
-import {PropsType} from "./UserContainer";
 
 type ProfileStatusPropsType = {
     status: string
