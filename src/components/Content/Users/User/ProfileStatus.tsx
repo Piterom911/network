@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from "./User.module.css";
+import {PropsType} from "./UserContainer";
 
 type ProfileStatusPropsType = {
     status: string
@@ -16,6 +17,12 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, LocalStateTy
     state = {
         editMode: false,
         status: this.props.status
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<LocalStateType>, snapshot?: any) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
     }
 
     onSpanClickHandler = () => {
