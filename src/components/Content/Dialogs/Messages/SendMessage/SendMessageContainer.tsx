@@ -1,4 +1,4 @@
-import {addMessageAC, newMessageTextAC} from "../../../../../redux/dialogsReducer";
+import {addMessageAC} from "../../../../../redux/dialogsReducer";
 import {AppStateTypes} from "../../../../../redux/store";
 import {SendMessage} from "./SendMessage";
 import {connect} from "react-redux";
@@ -29,36 +29,24 @@ import {Dispatch} from "redux";
 
 export type SendMessagePropsType2 = MapStateToPropsType & MapDispatchToPropsType
 
-type MapStateToPropsType = {
-    newMessage: string
-}
+type MapStateToPropsType = {}
 
 type MapDispatchToPropsType = {
     onMessageSend: (newMessage: string) => void
-    onMessageChange: (value: string) => void
 }
 
 const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
-    return {
-        newMessage: state.dialogsPage.newMessage
-    }
+    return {}
 }
 
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         onMessageSend: (newMessage: string) => {
-            if (!newMessage.trim())  {
-                dispatch(newMessageTextAC(''))
-                return
-            }
             dispatch(addMessageAC(newMessage.trim()))
         },
-        onMessageChange: (value: string) => {
-            dispatch(newMessageTextAC(value))
-        }
     }
 }
 
-const SendMessageContainer = connect(mapStateToProps, mapDispatchToProps)(SendMessage)
-export default SendMessageContainer
+export default connect(mapStateToProps, mapDispatchToProps)(SendMessage)
+

@@ -17,14 +17,14 @@ export function Content() {
                 <Route path={['/posts', '/messages']} render={() => <LeftSide/>}/>
                 <div className={`innerCenter`}>
                     <Route path={'/posts'} render={() => <Posts/>}/>
-                    <Route path={'/messages'} render={() => <MessagesContainer/>}/>
+                    <Route path={'/messages/:dialogID?'} render={() => <MessagesContainer/>}/>
                 </div>
                 <Route path={['/posts', '/messages']} render={() => <RightSide/>}/>
             </div>
             <Route path={'/profile/:userID?'} render={() => <Profile/>}/>
             <Route path={'/users'} render={() => <UsersContainer/>}/>
             <Route path={'/login'} render={() => <Login/>}/>
-            {/*<Route render={() => <h1 style={{fontSize: '100px', textAlign: 'center'}}>404</h1>}/>*/}
+            <Route render={() => <Redirect to={'/login'}/> }/>
         </>
     )
 }

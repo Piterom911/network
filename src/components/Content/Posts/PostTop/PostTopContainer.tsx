@@ -5,7 +5,6 @@ import {Dispatch} from "redux";
 import {connect} from "react-redux";
 
 type MapStateToPropsType = {
-    newPostText: string
 }
 type MapDispatchToPropsType = {
     addPost: (newPost: string) => void
@@ -14,9 +13,7 @@ type MapDispatchToPropsType = {
 export type ProfileTopPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
-    return {
-        newPostText: state.postsPage.newPostText
-    }
+    return {}
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {

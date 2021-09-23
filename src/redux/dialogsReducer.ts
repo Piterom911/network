@@ -16,13 +16,7 @@ export type messageTypes = {
 export type dialogsPageTypes = {
     dialogs: Array<dialogTypes>
     messages: Array<messageTypes>
-    newMessage: string
 }
-
-export type newMessageTextActionType = ReturnType<typeof newMessageTextAC>
-export type addMessageActionType = ReturnType<typeof addMessageAC>
-
-export type dialogsActions = newMessageTextActionType | addMessageActionType
 
 const initialState: dialogsPageTypes = {
     dialogs: [
@@ -55,13 +49,10 @@ const initialState: dialogsPageTypes = {
             message: 'Ha ha! You should be kidding me?!!!'
         },
     ],
-    newMessage: ''
 }
 
-function dialogsReducer(state: dialogsPageTypes = initialState, action: dialogsActions): dialogsPageTypes {
+function dialogsReducer(state: dialogsPageTypes = initialState, action: DialogsActions): dialogsPageTypes {
     switch (action.type) {
-        case 'NEW-MESSAGE-TEXT':
-            return {...state, newMessage: action.newMessageText}
         case 'ADD-MESSAGE':
             return {
                 ...state,
@@ -74,16 +65,15 @@ function dialogsReducer(state: dialogsPageTypes = initialState, action: dialogsA
                         message: action.message
                     }
                 ],
-                newMessage: ''
             }
         default:
             return state
     }
 }
 
-export const newMessageTextAC = (newMessageText: string) => {
-    return {type: 'NEW-MESSAGE-TEXT', newMessageText} as const
-}
+export type addMessageActionType = ReturnType<typeof addMessageAC>
+export type DialogsActions = addMessageActionType
+
 export const addMessageAC = (message: string) => {
     return {type: 'ADD-MESSAGE', message} as const
 }

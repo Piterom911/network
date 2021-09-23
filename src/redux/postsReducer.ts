@@ -7,7 +7,6 @@ export type postTypes = {
 }
 export type profilePageTypes = {
     posts: Array<postTypes>
-    newPostText: string
 }
 
 export type newPostTextActionType = ReturnType<typeof newPostTextAC>
@@ -25,7 +24,6 @@ const initialState = {
         },
         {id: v1(), likes: 17, post: 'The truth is... I am Iron Man!'}
     ],
-    newPostText: ''
 }
 
 function postsReducer(state: profilePageTypes = initialState, action: profileActions): profilePageTypes {
@@ -33,13 +31,11 @@ function postsReducer(state: profilePageTypes = initialState, action: profileAct
         case 'NEW-POST-TEXT':
             return {
                 ...state,
-                newPostText: action.newPostText
             }
         case 'ADD-POST':
             return {
                 ...state,
                 posts: [{id: v1(), likes: 0, post: action.post}, ...state.posts],
-                newPostText: ''
             }
         default:
             return state

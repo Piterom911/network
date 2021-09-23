@@ -1,35 +1,36 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react'
+import React, {KeyboardEvent} from 'react'
 import IconSend from '../../../../../icons/IconSend'
 import s from './SendMessage.module.css'
 import {SendMessagePropsType2} from "./SendMessageContainer";
+import {SubmitHandler, useForm} from "react-hook-form";
+
+interface IFormInput {
+    newMessage: string;
+}
 
 export function SendMessage(props: SendMessagePropsType2) {
-
-    const onMessageSend = () => {
-        props.onMessageSend(props.newMessage)
-    }
-
-    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(e.currentTarget.value === '\n') return
-        props.onMessageChange(e.currentTarget.value)
+    const {register, handleSubmit, setValue} = useForm<IFormInput>();
+    const onSubmit: SubmitHandler<IFormInput> = data => {
+        props.onMessageSend(data.newMessage)
+        setValue('newMessage', '')
     }
 
     const onEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (!e.shiftKey && !e.ctrlKey && e.key === 'Enter') {
-            onMessageSend()
+            handleSubmit(onSubmit)()
+            e.preventDefault()
         }
     }
 
     return (
-        <div className={s.wrapper}>
-            <textarea value={props.newMessage}
+        <form onSubmit={handleSubmit(onSubmit)} className={s.wrapper}>
+            <textarea {...register("newMessage")}
                       onKeyPress={onEnterPress}
-                      onChange={onMessageChange}
                       className={s.textarea}
                       placeholder="Write your message here..." />
-            <div className={s.send} onClick={onMessageSend}>
+            <button className={s.send}>
                 <IconSend />
-            </div>
-        </div>
+            </button>
+        </form>
     )
 }

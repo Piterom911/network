@@ -1,39 +1,38 @@
 import React, {KeyboardEvent} from 'react'
 import s from './PostTop.module.css'
 import {ProfileTopPropsType} from "./PostTopContainer";
+import {SubmitHandler, useForm} from "react-hook-form";
+
+interface IFormInput {
+    newPost: string;
+}
 
 export function PostTop(props: ProfileTopPropsType) {
-
-    const enteredText = React.createRef<HTMLTextAreaElement>()
-
-    const onPostChangeHandler = () => {
-        if(enteredText.current?.value || enteredText.current?.value === '') {
-            if(enteredText.current.value === '\n') return
-            props.onPostChange(enteredText.current.value)
-        }
+    const {register, handleSubmit, setValue} = useForm<IFormInput>();
+    const onSubmit: SubmitHandler<IFormInput> = data => {
+        props.addPost(data.newPost)
+        setValue('newPost', '')
     }
 
     const onEnterPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if(event.shiftKey || event.ctrlKey) return
-        if(event.key === 'Enter') addPostHandler()
-        }
-
-    const addPostHandler = () => {
-        let value = enteredText.current?.value.trim();
-        if(value && enteredText.current?.value) {
-            props.addPost(value)
-            enteredText.current.value = ''
+        if(event.key === 'Enter') {
+            handleSubmit(onSubmit)()
+            event.preventDefault()
         }
     }
 
     return (
-        <div className={`${s.wrapper} themeBorder`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`${s.wrapper} themeBorder`}>
             <h3 className={s.heading}>Create Post</h3>
             <div className={s.main}>
                 <div className={s.avatar}><img src={'http://wpkixx.com/html/pitnik-dark/images/resources/friend-avatar9.jpg'} alt="avatar"/></div>
-                <textarea onKeyPress={onEnterPress} onChange={onPostChangeHandler} value={props.newPostText} ref={enteredText} className={s.text} placeholder="Share some what you are thinking?"/>
+                <textarea {...register("newPost")}
+                          onKeyPress={onEnterPress}
+                          className={s.text}
+                          placeholder="Share some what you are thinking?"/>
             </div>
-            <button onClick={addPostHandler} className={s.submit}>Post</button>
-        </div>
+            <button className={s.submit}>Post</button>
+        </form>
     )
 }
