@@ -1,6 +1,11 @@
 import React from "react";
 import s from './Login.module.css'
 import {useForm, SubmitHandler} from "react-hook-form";
+import {loginMe} from "../../../redux/auth/authReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateTypes} from "../../../redux/store";
+import {Redirect} from "react-router-dom";
+import {AuthInitialStateTypes} from "../../../redux/auth/authTypes";
 
 interface IFormInput {
     userName: string;
@@ -10,7 +15,15 @@ interface IFormInput {
 
 export const Login = () => {
     const {register, handleSubmit, formState: { errors }} = useForm<IFormInput>();
-    const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+    const dispatch = useDispatch()
+    const onSubmit: SubmitHandler<IFormInput> = data => {
+        dispatch(loginMe(data.userName, data.password, data.rememberMe, false))
+    };
+
+    const auth = useSelector<AppStateTypes, AuthInitialStateTypes>(state => state.auth)
+     if (auth.isAuth) {
+         return <Redirect to={`/profile/${auth.id}`} />
+     }
 
     return (
         <div className={s.wrapper + ' themeBorder themeBorderPad'}>
@@ -38,6 +51,7 @@ export const Login = () => {
                     <label className={s.label}>
                         <input {...register("rememberMe")}
                                type="checkbox"
+                               checked={true}
                                className={s.rememberMe}/>
                         <span className={s.checkboxText}>remember me?</span>
                     </label>

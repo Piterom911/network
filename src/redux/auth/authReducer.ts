@@ -5,13 +5,12 @@ import {authActions} from "./authActions";
 
 function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRootActionsType): AuthInitialStateTypes {
     switch (action.type) {
-        case authActions.SET_AUTH_USER_DATA: {
-            return {
-                ...action.payload,
-                isAuth: true,
-                isFetching: false,
-            }
-        }
+        case authActions.SET_AUTH_USER_DATA:
+            return {...action.payload, isAuth: true, isFetching: false,}
+        case authActions.LOGIN:
+            return { ...action.payload, isAuth: true, isFetching: false, }
+        case authActions.LOGOUT:
+            return initialState
         default: {
             return state
         }
@@ -20,6 +19,28 @@ function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRo
 
 export const setAuthUserData = (id: number, email: string, login: string): SetAuthUserDataType => {
     return {type: authActions.SET_AUTH_USER_DATA, payload: {id, email, login}}
+}
+export const setLoginData = (id: number, email: string, login: string) => {
+    return {type: authActions.LOGIN, payload: {id, email, login}} as const
+}
+export const setLogoutData = () => {
+    return {type: authActions.LOGOUT} as const
+}
+
+export const loginMe = (email: string, password: string, rememberMe: boolean = false, captcha: boolean):
+    // zLTUyiXvk_cf9fk
+    RootThunkType => async dispatch => {
+    const response =  await authAPI.logIn(email, password, rememberMe, captcha)
+    if (response.data.resultCode === 0) {
+        dispatch(setLoginData(response.data.data.userId, email, ''))
+    }
+}
+
+export const logOut = (): RootThunkType => async dispatch => {
+    const response = await authAPI.logOut()
+    if (response.data.resultCode === 0) {
+        dispatch(setLogoutData())
+    }
 }
 
 export const getAuthUserData = (): RootThunkType => async dispatch => {

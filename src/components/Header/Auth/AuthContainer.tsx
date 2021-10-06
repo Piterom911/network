@@ -1,6 +1,6 @@
 import React from "react";
 import {Auth} from "./Auth";
-import {getAuthUserData} from "../../../redux/auth/authReducer";
+import {getAuthUserData, logOut} from "../../../redux/auth/authReducer";
 import {connect} from "react-redux";
 import {AppStateTypes} from "../../../redux/store";
 
@@ -11,8 +11,15 @@ class AuthContainer extends React.Component<MSPType & MDPType, {  }> {
     }
 
     render() {
+
+        const logOutHandler = () => {
+            this.props.logOut()
+        }
+
         return <Auth isAuth={this.props.isAuth}
                      email={this.props.email}
+                     photo={this.props.photo}
+                     logOut={this.props.logOut}
         />;
     }
 }
@@ -20,17 +27,20 @@ class AuthContainer extends React.Component<MSPType & MDPType, {  }> {
 type MSPType = {
     email: string | null
     isAuth: boolean
+    photo: string
 }
 
 type MDPType = {
     getAuthUserData: () => void
+    logOut: () => void
 }
 
 const mapStateToProps = (state: AppStateTypes): MSPType => {
     return {
         email: state.auth.email,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        photo: state.profilePage.photos.small
     }
 }
 
-export default connect(mapStateToProps, {getAuthUserData})(AuthContainer)
+export default connect(mapStateToProps, {getAuthUserData, logOut})(AuthContainer)

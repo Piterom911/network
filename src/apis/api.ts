@@ -10,34 +10,30 @@ const instance = axios.create({
     }
 })
 
-type FollowApiResponseType = {
+type ResponseApiType<T> = {
     resultCode: 1 | 0
     messages: string[]
-    data: {}
+    data: T
 }
 type UserApiResponseType = {
     error: null | string
     items: UserType[]
     totalCount: number
 }
-type AuthApiResponseType = {
-    resultCode: 0 | 1
-    messages: string[]
-    data: {
-        id: number
-        email: string
-        login: string
-    }
+type AuthResponseDataType = {
+    id: number
+    email: string
+    login: string
 }
 type ProfileApiResponseType = ProfilePageTypes
 
 export const followAPI = {
     follow(userID: number) {
-        return instance.post<FollowApiResponseType>(`follow/${userID}`, {})
+        return instance.post<ResponseApiType<{}>>(`follow/${userID}`, {})
             .then(res => res.data)
     },
     unfollow(userID: number) {
-        return instance.delete<FollowApiResponseType>(`follow/${userID}`)
+        return instance.delete<ResponseApiType<{}>>(`follow/${userID}`)
             .then(res => res.data)
     },
 }
@@ -51,16 +47,16 @@ export const usersAPI = {
 }
 export const authAPI = {
     authMe() {
-        return instance.get<AuthApiResponseType>(`auth/me`)
+        return instance.get<ResponseApiType<AuthResponseDataType>>(`auth/me`)
             .then(res => {
                 return res.data
             })
     },
     logIn(email: string, password: string, rememberMe: boolean, captcha: boolean) {
-        return instance.post('auth/login', {email, password, rememberMe, captcha})
+        return instance.post<ResponseApiType<{userId: number}>>('auth/login', {email, password, rememberMe, captcha})
     },
     logOut() {
-        return instance.delete('auth/login')
+        return instance.delete<ResponseApiType<{}>>('auth/login')
     },
 }
 export const profileAPI = {
