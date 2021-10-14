@@ -52,7 +52,7 @@ export const Login = () => {
                         <span className={s.labelText}>Password</span>
                         {errors.password &&
                         <span className={s.error}>Password is required. Should contain minimum 5 symbols.</span>}
-                        <input {...register("password", {required: true, minLength: 5})}
+                        <input {...register("password", {required: true, minLength: 4})}
                                type="password"
                                onChange={changeInput}
                                className={s.password}/>

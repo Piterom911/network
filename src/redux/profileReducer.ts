@@ -34,7 +34,7 @@ export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 export type DialogsActionsRootType = SetProfileACType | ToggleIsFetchingACType
 
 const initialState: ProfilePageTypes = {
-    userId: 11450,
+    userId: 0,
     aboutMe: '',
     lookingForAJob: false,
     lookingForAJobDescription: '',

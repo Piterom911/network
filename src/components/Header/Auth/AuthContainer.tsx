@@ -34,7 +34,7 @@ const mapStateToProps = (state: AppStateTypes): MSPType => {
     return {
         email: state.auth.email,
         isAuth: state.auth.isAuth,
-        photo: state.profilePage.photos.small
+        photo: state.auth.smallPhoto
     }
 }
 

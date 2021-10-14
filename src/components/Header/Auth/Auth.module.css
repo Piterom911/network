@@ -9,6 +9,7 @@
     border-radius: 50%;
     overflow: hidden;
     margin-right: 15px;
+    border: 1px solid white;
 }
 
 .logout {

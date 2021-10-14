@@ -1,20 +1,23 @@
-import {authAPI} from "../../apis/api";
+import {authAPI, profileAPI} from "../../apis/api";
 import {RootThunkType} from "../store";
 import {AuthInitialStateTypes, AuthRootActionsType, initialState, SetAuthUserDataType} from "./authTypes";
 import {authActions} from "./authActions";
+import {ProfilePageTypes} from "../profileReducer";
 
 function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRootActionsType): AuthInitialStateTypes {
     switch (action.type) {
         case authActions.SET_AUTH_USER_DATA:
-            return { ...action.payload, isAuth: true, isFetching: false, isResponseError: null, isInitialized: true }
+            return { ...state, ...action.payload, isAuth: true, isFetching: false, }
         case authActions.LOGIN:
-            return { ...action.payload, isAuth: true, isFetching: false, isResponseError: null, isInitialized: true }
+            return { ...state, ...action.payload, isAuth: true, isFetching: false, }
         case authActions.LOGOUT:
             return { ...initialState, isInitialized: true}
         case authActions.SET_RESPONSE_ERROR:
             return { ...state, isResponseError: action.isError}
         case authActions.SET_INITIALIZED_STATUS:
             return { ...state, isInitialized: action.status}
+        case authActions.SET_MY_DATA:
+            return { ...state, smallPhoto: action.payload.photos.small }
         default: {
             return state
         }
@@ -35,6 +38,9 @@ export const setResponseError = (isError: null | string) => {
 }
 export const setInitializedStatus = (status: boolean) => {
     return {type: authActions.SET_INITIALIZED_STATUS, status} as const
+}
+export const setMyData = (data: ProfilePageTypes) => {
+    return {type: authActions.SET_MY_DATA, payload: data} as const
 }
 
 export const loginMe = (email: string, password: string, rememberMe: boolean = false, captcha: boolean):
@@ -66,6 +72,8 @@ export const getAuthUserData = (): RootThunkType => async dispatch => {
         const {id, login, email} = authData.data
         dispatch(setAuthUserData(id, email, login))
         dispatch(setInitializedStatus(true))
+        const myProfile = await profileAPI.getProfile(authData.data.id)
+        dispatch(setMyData(myProfile))
     } else {
         dispatch(setInitializedStatus(true))
     }
