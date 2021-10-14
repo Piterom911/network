@@ -1,20 +1,24 @@
 import {authActions} from "./authActions";
-import {setLoginData, setLogoutData} from "./authReducer";
+import {setInitializedStatus, setLoginData, setLogoutData, setResponseError} from "./authReducer";
 
 export interface AuthInitialStateTypes  {
     id: number,
     email: string,
     login: string,
     isFetching: boolean,
-    isAuth: boolean
+    isAuth: boolean,
+    isResponseError: null | string,
+    isInitialized: boolean,
 }
 
 export const initialState = {
     id: 0,
-    isAuth: false,
     email: '',
     login: '',
     isFetching: true,
+    isAuth: false,
+    isResponseError: null,
+    isInitialized: false,
 }
 export type SetAuthUserDataType = {
     type: authActions.SET_AUTH_USER_DATA
@@ -26,5 +30,8 @@ export type SetAuthUserDataType = {
 }
 export type SetLoginDataType = ReturnType<typeof setLoginData>
 export type SetLogoutDataType = ReturnType<typeof setLogoutData>
+export type SetResponseErrorType = ReturnType<typeof setResponseError>
+export type SetInitializedStatusType = ReturnType<typeof setInitializedStatus>
 
-export type AuthRootActionsType = SetAuthUserDataType | SetLoginDataType | SetLogoutDataType
+export type AuthRootActionsType = SetAuthUserDataType | SetLoginDataType
+    | SetLogoutDataType | SetResponseErrorType | SetInitializedStatusType

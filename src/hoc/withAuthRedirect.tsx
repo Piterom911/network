@@ -1,7 +1,7 @@
 import React from "react";
 import {AppStateTypes} from "../redux/store";
 import {connect} from "react-redux";
-import {Login} from "../components/Content/Login/Login";
+import {Redirect} from "react-router-dom";
 
 type MSTPType = {
     isAuth: boolean
@@ -15,7 +15,7 @@ function withAuthRedirect <T>(Component: React.ComponentType<T>) {
     class ComponentContainer extends React.Component<MSTPType, {}> {
         render() {
             const {isAuth, ...restProps} = this.props
-            if (!isAuth) return <Login />
+            if (!isAuth) return <Redirect to={'/login'} />
             return <Component {...restProps as T} />
         }
     }

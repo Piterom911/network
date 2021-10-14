@@ -1,8 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import userAvatar from "../../../assets/images/users/userIcon4.jpg"
 import s from "./Auth.module.css"
-import {Redirect} from "react-router-dom";
-import {Login} from "../../Content/Login/Login";
 
 type AuthPropsType = {
     email: string | null
@@ -25,7 +24,7 @@ export const Auth = (props: AuthPropsType) => {
                         <button onClick={props.logOut} className={s.logout}>Log out</button>
                     </div>
                 </div>
-                : <button className={s.logout}>log in</button>}
+                : <NavLink className={s.logout} to={'/login'}>log in</NavLink>}
         </div>
     )
 }

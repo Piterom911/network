@@ -52,6 +52,7 @@ export const authAPI = {
                 return res.data
             })
     },
+    // zLTUyiXvk_cf9fk
     logIn(email: string, password: string, rememberMe: boolean, captcha: boolean) {
         return instance.post<ResponseApiType<{userId: number}>>('auth/login', {email, password, rememberMe, captcha})
     },

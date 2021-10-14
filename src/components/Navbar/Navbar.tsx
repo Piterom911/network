@@ -6,11 +6,15 @@ import IconNews from "../../icons/IconNews";
 import IconSettings from "../../icons/IconSettings";
 import IconMusic from '../../icons/IconMusic';
 import {NavItem} from "./NavItem/NavItem";
+import {useSelector} from "react-redux";
+import {AppStateTypes} from "../../redux/store";
 
 export function Navbar() {
+    const isAuth = useSelector<AppStateTypes, boolean>( state => state.auth.isAuth)
+    const myID = useSelector<AppStateTypes, number>( state => state.auth.id)
     return (
         <div className={s.navbar}>
-            <NavItem name={'Profile'} to={'/profile/11450'}>
+            <NavItem name={'Profile'} to={isAuth ? `/profile/${myID}` : '/login'}>
                 <IconUser fill={'white'} />
             </NavItem>
             <NavItem name={'Messages'} to={'/messages'}>

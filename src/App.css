@@ -94,3 +94,17 @@ h4::before {
   margin-left: auto;
   margin-right: auto;
 }
+
+.centralContent {
+  padding-top: 90px;
+}
+
+.wrapperWithWidgets {
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 75px;
+  padding-right: 75px;
+  display: flex;
+  align-items: flex-start;
+}

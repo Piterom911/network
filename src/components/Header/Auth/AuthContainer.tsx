@@ -11,11 +11,6 @@ class AuthContainer extends React.Component<MSPType & MDPType, {  }> {
     }
 
     render() {
-
-        const logOutHandler = () => {
-            this.props.logOut()
-        }
-
         return <Auth isAuth={this.props.isAuth}
                      email={this.props.email}
                      photo={this.props.photo}

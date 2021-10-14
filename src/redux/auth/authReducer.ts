@@ -6,11 +6,15 @@ import {authActions} from "./authActions";
 function authReducer(state: AuthInitialStateTypes = initialState, action: AuthRootActionsType): AuthInitialStateTypes {
     switch (action.type) {
         case authActions.SET_AUTH_USER_DATA:
-            return {...action.payload, isAuth: true, isFetching: false,}
+            return { ...action.payload, isAuth: true, isFetching: false, isResponseError: null, isInitialized: true }
         case authActions.LOGIN:
-            return { ...action.payload, isAuth: true, isFetching: false, }
+            return { ...action.payload, isAuth: true, isFetching: false, isResponseError: null, isInitialized: true }
         case authActions.LOGOUT:
-            return initialState
+            return { ...initialState, isInitialized: true}
+        case authActions.SET_RESPONSE_ERROR:
+            return { ...state, isResponseError: action.isError}
+        case authActions.SET_INITIALIZED_STATUS:
+            return { ...state, isInitialized: action.status}
         default: {
             return state
         }
@@ -26,13 +30,26 @@ export const setLoginData = (id: number, email: string, login: string) => {
 export const setLogoutData = () => {
     return {type: authActions.LOGOUT} as const
 }
+export const setResponseError = (isError: null | string) => {
+    return {type: authActions.SET_RESPONSE_ERROR, isError} as const
+}
+export const setInitializedStatus = (status: boolean) => {
+    return {type: authActions.SET_INITIALIZED_STATUS, status} as const
+}
 
 export const loginMe = (email: string, password: string, rememberMe: boolean = false, captcha: boolean):
     // zLTUyiXvk_cf9fk
     RootThunkType => async dispatch => {
-    const response =  await authAPI.logIn(email, password, rememberMe, captcha)
-    if (response.data.resultCode === 0) {
-        dispatch(setLoginData(response.data.data.userId, email, ''))
+    try {
+        const response =  await authAPI.logIn(email, password, rememberMe, captcha)
+        if (response.data.resultCode === 0) {
+            dispatch(setLoginData(response.data.data.userId, email, ''))
+        } else if (response.data.resultCode === 1) {
+            const error = response.data.messages[0] ?? 'Some error occurred'
+            dispatch(setResponseError(error))
+        }
+    } catch (error) {
+
     }
 }
 
@@ -48,6 +65,9 @@ export const getAuthUserData = (): RootThunkType => async dispatch => {
     if (authData.resultCode === 0) {
         const {id, login, email} = authData.data
         dispatch(setAuthUserData(id, email, login))
+        dispatch(setInitializedStatus(true))
+    } else {
+        dispatch(setInitializedStatus(true))
     }
 }
 
