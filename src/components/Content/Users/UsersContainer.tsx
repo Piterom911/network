@@ -25,6 +25,12 @@ import bg10 from "../../../assets/images/users/user-cover10.jpg";
 import bg11 from "../../../assets/images/users/user-cover14.jpg";
 import bg12 from "../../../assets/images/users/user-cover11.jpg";
 import s from "./Users.module.css";
+import {
+    getCurrentPage, getIsFetching,
+    getIsFollowFetching,
+    getPagesSize, getTotalUsersCount,
+    getUsersSelector
+} from "../../../redux/selectors/users-selectors";
 
 type StateType = {
     imagesBg: Array<string>
@@ -91,11 +97,11 @@ class UsersAPI extends React.Component<UsersPropsType & ProfilePageType, StateTy
 
 export type MapStateToPropsType = {
     users: UserType[]
+    isFollowFetching: number[]
     pagesSize: number
     currentPage: number
     totalUsersCount: number
     isFetching: boolean
-    isFollowFetching: number[]
 }
 export type MapDispatchToPropsType = {
     setFollow: (userID: number) => void
@@ -110,12 +116,12 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateTypes): MapStateToPropsType => {
     return {
-        isFollowFetching: state.usersPage.isFollowFetching,
-        users: state.usersPage.users,
-        pagesSize: state.usersPage.pagesSize,
-        currentPage: state.usersPage.currentPage,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        isFetching: state.usersPage.isFetching,
+        users: getUsersSelector(state),
+        isFollowFetching: getIsFollowFetching(state),
+        pagesSize: getPagesSize(state),
+        currentPage: getCurrentPage(state),
+        totalUsersCount: getTotalUsersCount(state),
+        isFetching: getIsFetching(state),
     }
 }
 
